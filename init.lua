@@ -118,7 +118,18 @@ snacks.setup({
     picker = { enabled = true },
 })
 
-require("persistence").setup({})
+-- persistence
+local persistence = require("persistence")
+persistence.setup({})
+whichkey.add({ "<leader>i", group = "Sess[i]on" })
+
+vim.keymap.set("n", "<leader>il", function()
+    persistence.load()
+end, { desc = "[l]oad the session for the current dir" })
+
+vim.keymap.set("n", "<leader>ic", function()
+    persistence.select()
+end, { desc = "[c]hoose a previously saved session" })
 
 -- scratch file
 whichkey.add({ "<leader>k", group = "S[k]ratch" })
