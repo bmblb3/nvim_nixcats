@@ -228,3 +228,5 @@ require("conform").setup({
         lsp_format = "fallback",
     },
 })
+
+require("flash").setup({ modes = { search = { enabled = true } } })
