@@ -221,7 +221,11 @@ require("conform").setup({
     },
     formatters = {
         stylua = { prepend_args = { "--indent-type", "Spaces" } },
-        djlint = { timeout_ms = 5000 },
+        djlint = {
+            format_on_save = {
+                timeout_ms = 5000,
+            },
+        },
     },
     format_on_save = {
         timeout_ms = 500,
