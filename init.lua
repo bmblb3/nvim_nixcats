@@ -221,11 +221,6 @@ require("conform").setup({
     },
     formatters = {
         stylua = { prepend_args = { "--indent-type", "Spaces" } },
-        djlint = {
-            format_on_save = {
-                timeout_ms = 5000,
-            },
-        },
     },
     format_on_save = function(bufnr)
         local long_fmt_filetypes = { "html" }
