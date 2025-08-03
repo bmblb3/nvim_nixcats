@@ -70,6 +70,7 @@
               blink-ripgrep-nvim
               CopilotChat-nvim
               conform-nvim
+              flash-nvim
             ];
           };
           # optionalPlugins = { };

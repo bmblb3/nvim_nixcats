@@ -87,9 +87,9 @@ vim.keymap.set(
 vim.cmd.colorscheme("unokai")
 
 require("lualine").setup({})
-local whichkey = require("which-key")
+local wk = require("which-key")
 
-whichkey.add({ "<leader>g", group = "[g]it stuff" })
+wk.add({ "<leader>g", group = "[g]it stuff" })
 vim.keymap.set("n", "<leader>gl", function()
     vim.cmd(
         "silent !zellij run --floating --close-on-exit --pinned true --width 90\\% --x 5\\% --height 90\\% --y 10\\% -- lazygit"
@@ -121,18 +121,18 @@ snacks.setup({
 -- persistence
 local persistence = require("persistence")
 persistence.setup({})
-whichkey.add({ "<leader>i", group = "Sess[i]on" })
+wk.add({ "<leader>i", group = "Sess[i]on" })
 
-vim.keymap.set("n", "<leader>il", function()
+vim.keymap.set("n", "<leader>i.", function()
     persistence.load()
-end, { desc = "[l]oad the session for the current dir" })
+end, { desc = "load the session for the [.]current dir" })
 
 vim.keymap.set("n", "<leader>ic", function()
     persistence.select()
 end, { desc = "[c]hoose a previously saved session" })
 
 -- scratch file
-whichkey.add({ "<leader>k", group = "S[k]ratch" })
+wk.add({ "<leader>k", group = "S[k]ratch" })
 
 local function get_scratch_config(ft)
     local handle = io.popen("basename $(git rev-parse --show-toplevel) 2>/dev/null")
@@ -154,7 +154,7 @@ end
 
 vim.keymap.set("n", "<leader>k.", function()
     snacks.scratch.open(get_scratch_config("markdown"))
-end, { desc = "Toggle [.]md scratchfile for the current project" })
+end, { desc = "Toggle markdown scratchfile for the [.]current project" })
 
 vim.keymap.set("n", "<leader>kf", function()
     snacks.scratch.open(get_scratch_config())
@@ -229,4 +229,48 @@ require("conform").setup({
     },
 })
 
+-- flash
 require("flash").setup({ modes = { search = { enabled = true } } })
+wk.add({
+    {
+        mode = { "n", "x", "o" },
+        {
+            "s",
+            function()
+                require("flash").jump()
+            end,
+            desc = "Fla[s]h (local)",
+        },
+        {
+            "S",
+            function()
+                require("flash").tressitter()
+            end,
+            desc = "Flash tree[S]itter (local)",
+        },
+    },
+    {
+        "r",
+        mode = "o",
+        function()
+            require("flash").remote()
+        end,
+        desc = "Flash ([r]emote)",
+    },
+    {
+        "R",
+        mode = { "o", "x" },
+        function()
+            require("flash").treesitter_search()
+        end,
+        desc = "Flash treesitter ([R]emote)",
+    },
+    {
+        "<c-7>",
+        mode = { "c" },
+        function()
+            require("flash").toggle()
+        end,
+        desc = "Toggle Flash Search",
+    },
+})
