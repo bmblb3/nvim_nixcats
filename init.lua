@@ -91,9 +91,7 @@ local wk = require("which-key")
 
 wk.add({ "<leader>g", group = "[g]it stuff" })
 vim.keymap.set("n", "<leader>gl", function()
-    vim.cmd(
-        "silent !zellij run --floating --close-on-exit --pinned true --width 90\\% --x 5\\% --height 90\\% --y 10\\% -- lazygit"
-    )
+    vim.cmd("silent !zellij run --in-place --close-on-exit -- lazygit")
     vim.cmd("redraw!")
 end, { noremap = true, silent = true, desc = "Open lazygit in a zellij floating window" })
 require("gitsigns").setup()
