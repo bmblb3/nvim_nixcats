@@ -227,10 +227,13 @@ require("conform").setup({
             },
         },
     },
-    format_on_save = {
-        timeout_ms = 500,
-        lsp_format = "fallback",
-    },
+    format_on_save = function(bufnr)
+        local long_fmt_filetypes = { "html" }
+        if vim.tbl_contains(long_fmt_filetypes, vim.bo[bufnr].filetype) then
+            return { timeout_ms = 5000, lsp_format = "fallback" }
+        end
+        return { timeout_ms = 500, lsp_format = "fallback" }
+    end,
 })
 
 -- flash
