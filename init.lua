@@ -96,6 +96,7 @@ vim.keymap.set("n", "<leader>gl", function()
     )
     vim.cmd("redraw!")
 end, { noremap = true, silent = true, desc = "Open lazygit in a zellij floating window" })
+require("gitsigns").setup()
 
 require("nvim-treesitter.configs").setup({
     highlight = { enable = true },

@@ -71,6 +71,7 @@
               CopilotChat-nvim
               conform-nvim
               flash-nvim
+              gitsigns-nvim
             ];
           };
           # optionalPlugins = { };
