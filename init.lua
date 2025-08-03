@@ -265,11 +265,11 @@ wk.add({
         desc = "Flash treesitter ([R]emote)",
     },
     {
-        "<c-7>",
+        "<c-s>",
         mode = { "c" },
         function()
             require("flash").toggle()
         end,
-        desc = "Toggle Flash Search",
+        desc = "Toggle Fla[^s]h Search",
     },
 })
