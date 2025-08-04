@@ -41,6 +41,7 @@
               lua-language-server
               nil
               postgres-lsp
+              ruff
               superhtml
               tailwindcss-language-server
               typescript-language-server
