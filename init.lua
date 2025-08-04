@@ -278,3 +278,6 @@ wk.add({
         desc = "Toggle Fla[^s]h Search",
     },
 })
+
+--
+require("hardtime").setup()

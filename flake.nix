@@ -75,6 +75,7 @@
               conform-nvim
               flash-nvim
               gitsigns-nvim
+              hardtime-nvim
             ];
           };
           # optionalPlugins = { };
