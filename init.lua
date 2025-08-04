@@ -173,6 +173,7 @@ vim.lsp.config("lua_ls", {
         },
     },
 })
+vim.lsp.enable("basedpyright")
 vim.lsp.enable("bashls")
 vim.lsp.enable("docker_language_server")
 vim.lsp.enable("jinja_lsp")

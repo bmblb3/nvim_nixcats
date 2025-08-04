@@ -35,6 +35,7 @@
               universal-ctags
               ripgrep
               fd
+              basedpyright
               bash-language-server
               docker-language-server
               jinja-lsp
