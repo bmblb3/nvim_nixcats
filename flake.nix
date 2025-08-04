@@ -40,6 +40,7 @@
               jinja-lsp
               lua-language-server
               nil
+              postgres-lsp
               superhtml
               tailwindcss-language-server
               typescript-language-server
