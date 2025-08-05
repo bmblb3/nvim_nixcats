@@ -185,6 +185,7 @@ vim.lsp.enable("superhtml")
 vim.lsp.enable("tailwindcss")
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("yamlls")
+vim.lsp.enable("rust-analyzer")
 require("copilot").setup({ panel = { enabled = false }, suggestions = { enabled = false } })
 require("CopilotChat").setup({})
 
@@ -220,6 +221,7 @@ require("conform").setup({
         java = { "google-java-format" },
         nix = { "nixfmt" },
         typst = { "typstyle" },
+        rust = { "rustfmt" },
     },
     formatters = {
         stylua = { prepend_args = { "--indent-type", "Spaces" } },

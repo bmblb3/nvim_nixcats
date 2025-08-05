@@ -43,6 +43,8 @@
               nil
               postgres-lsp
               ruff
+              rust-analyzer
+              rustfmt
               superhtml
               tailwindcss-language-server
               typescript-language-server
