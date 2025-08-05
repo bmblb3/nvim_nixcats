@@ -185,7 +185,7 @@ vim.lsp.enable("superhtml")
 vim.lsp.enable("tailwindcss")
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("yamlls")
-vim.lsp.enable("rust-analyzer")
+vim.lsp.enable("rust_analyzer")
 require("copilot").setup({ panel = { enabled = false }, suggestions = { enabled = false } })
 require("CopilotChat").setup({})
 
