@@ -120,6 +120,15 @@ snacks.setup({
 -- persistence
 local persistence = require("persistence")
 persistence.setup({})
+
+vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function()
+        if vim.fn.argc() == 0 then
+            persistence.load()
+        end
+    end,
+})
+
 wk.add({ "<leader>i", group = "Sess[i]on" })
 
 vim.keymap.set("n", "<leader>i.", function()
