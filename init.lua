@@ -143,7 +143,7 @@ end, { desc = "[c]hoose a previously saved session" })
 wk.add({ "<leader>k", group = "S[k]ratch" })
 
 local function get_scratch_config(ft)
-    local handle = io.popen("basename $(git rev-parse --show-toplevel) 2>/dev/null")
+    local handle = io.popen("readlink -f $(git rev-parse --show-toplevel) 2>/dev/null")
     local git_repo = handle and handle:read("*a"):gsub("\n", "") or nil
     if handle then
         handle:close()
