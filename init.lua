@@ -292,3 +292,40 @@ wk.add({
 
 --
 require("hardtime").setup()
+
+wk.add({
+    {
+        mode = { "n" },
+        {
+            "<leader>+",
+            function()
+                require("dial.map").manipulate("increment", "normal")
+            end,
+            desc = "Dial increment",
+        },
+        {
+            "<leader>-",
+            function()
+                require("dial.map").manipulate("decrement", "normal")
+            end,
+            desc = "Dial decrement",
+        },
+    },
+    {
+        mode = { "v" },
+        {
+            "<leader>+",
+            function()
+                require("dial.map").manipulate("increment", "visual")
+            end,
+            desc = "Dial increment",
+        },
+        {
+            "<leader>-",
+            function()
+                require("dial.map").manipulate("decrement", "visual")
+            end,
+            desc = "Dial decrement",
+        },
+    },
+})
