@@ -297,14 +297,14 @@ wk.add({
     {
         mode = { "n" },
         {
-            "<C-ä>",
+            "<C-a>",
             function()
                 require("dial.map").manipulate("increment", "normal")
             end,
             desc = "Dial increment",
         },
         {
-            "<C-ö>",
+            "<C-x>",
             function()
                 require("dial.map").manipulate("decrement", "normal")
             end,
@@ -314,14 +314,14 @@ wk.add({
     {
         mode = { "v" },
         {
-            "<C-ä>",
+            "<C-a>",
             function()
                 require("dial.map").manipulate("increment", "visual")
             end,
             desc = "Dial increment",
         },
         {
-            "<C-ö>",
+            "<C-x>",
             function()
                 require("dial.map").manipulate("decrement", "visual")
             end,
