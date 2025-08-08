@@ -125,7 +125,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
     callback = function()
         if vim.fn.argc() == 0 then
             persistence.load()
-            vim.cmd("doautocmd BufRead")
+            vim.cmd("bufdo doautocmd BufRead")
         end
     end,
 })
