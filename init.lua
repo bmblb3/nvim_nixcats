@@ -125,7 +125,9 @@ vim.api.nvim_create_autocmd("VimEnter", {
     callback = function()
         if vim.fn.argc() == 0 then
             persistence.load()
-            vim.cmd("doautocmd BufEnter")
+            -- Force LSP to attach and highlighting to initialize properly
+            vim.cmd("silent! bufdo e") -- Re-edit each buffer to trigger proper initialization
+            vim.cmd("redraw!") -- Refresh the screen
         end
     end,
 })
