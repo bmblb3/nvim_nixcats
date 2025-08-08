@@ -125,10 +125,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
     callback = function()
         if vim.fn.argc() == 0 then
             persistence.load()
-            vim.defer_fn(function()
-                -- vim.cmd("silent! bufdo filetype detect")
-                vim.cmd("doautocmd BufRead")
-            end, 200)
+            vim.cmd("doautocmd BufRead")
         end
     end,
 })
