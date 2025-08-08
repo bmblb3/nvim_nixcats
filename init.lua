@@ -84,7 +84,7 @@ vim.keymap.set(
     { noremap = true, silent = true, desc = "Paste over selection without erasing unnamed register" }
 )
 
-vim.cmd.colorscheme("unokai")
+vim.cmd.colorscheme("catppuccin")
 
 require("lualine").setup({})
 local wk = require("which-key")
