@@ -259,7 +259,7 @@ wk.add({
         {
             "S",
             function()
-                require("flash").tressitter()
+                require("flash").treesitter()
             end,
             desc = "Flash tree[S]itter (local)",
         },
