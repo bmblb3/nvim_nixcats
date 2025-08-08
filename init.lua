@@ -330,3 +330,15 @@ wk.add({
         },
     },
 })
+
+--
+wk.add({
+    {
+        mode = { "n" },
+        {
+            "<leader><leader>",
+            "@r",
+            desc = "Run macro in register 'r'",
+        },
+    },
+})
