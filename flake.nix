@@ -80,7 +80,6 @@
               gitsigns-nvim
               hardtime-nvim
               dial-nvim
-              catppuccin-nvim
             ];
           };
           # optionalPlugins = { };
