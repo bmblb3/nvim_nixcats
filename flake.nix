@@ -54,6 +54,7 @@
               djlint
               shfmt
               shellharden
+              shellcheck
               google-java-format
               nixfmt-rfc-style
               typstyle

@@ -227,7 +227,7 @@ require("conform").setup({
         typescript = { "prettierd" },
         html = { "prettierd", "djlint" },
         yaml = { "prettierd" },
-        sh = { "shellharden", "shfmt" },
+        sh = { "shellharden", "shfmt", "shellcheck" },
         java = { "google-java-format" },
         nix = { "nixfmt" },
         typst = { "typstyle" },
