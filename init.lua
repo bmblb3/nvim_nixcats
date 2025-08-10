@@ -40,9 +40,15 @@ vim.opt.wrap = false
 vim.g.netrw_liststyle = 3
 vim.g.netrw_banner = 0
 vim.opt.shortmess:append({ a = true, I = true, c = true })
-vim.opt.formatoptions = "jrql"
 vim.opt.jumpoptions = "view"
 vim.opt.laststatus = 3
+
+vim.api.nvim_create_autocmd("FileType", {
+    desc = "remove formatoptions",
+    callback = function()
+        vim.opt.formatoptions:remove({ "c", "r", "o" })
+    end,
+})
 
 vim.cmd([[command! W w]])
 vim.cmd([[command! Wq wq]])
