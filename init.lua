@@ -69,7 +69,7 @@ map("n", "N", "Nzzzv", { desc = "Previous Search Result" })
 
 map({ "n", "v", "x" }, "<leader>y", '"+y', { desc = "Yank to clipboard" })
 map({ "n", "v", "x" }, "<leader>p", '"+p', { desc = "Paste from clipboard" })
-map({ "v", "x" }, "p", '"_dP')
+map({ "v", "x" }, "p", '"_dP', { desc = "Keep unammed register when overwriting in visual mode" })
 
 wk.add({ "<leader>d", group = "LSP [d]iagnostics" })
 map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [d]iagnostic message" })
@@ -235,9 +235,9 @@ blink.add_source_provider("ripgrep", {
 require("flash").setup({ modes = { search = { enabled = true } } })
 map({ "n", "x", "o" }, "s", function() require("flash").jump() end, { desc = "Fla[s]h" })
 map({ "n", "x", "o" }, "S", function() require("flash").treesitter() end, { desc = "Flash tree[S]itter" })
-map({ "o" }, "r", function() require("flash").remote() end, { "flash [r]emote" })
-map({ "o", "x" }, "R", function() require("flash").treesitter_search() end, { "Flash treesitter [R]emote" })
-map({ "s" }, "<C-s>", function() require("flash").toggle() end, { "Toggle Fla[^s]h Search" })
+map({ "o" }, "r", function() require("flash").remote() end, { desc = "flash [r]emote" })
+map({ "o", "x" }, "R", function() require("flash").treesitter_search() end, { desc = "Flash treesitter [R]emote" })
+map({ "s" }, "<C-s>", function() require("flash").toggle() end, { desc = "Toggle Fla[^s]h Search" })
 
 require("hardtime").setup()
 
