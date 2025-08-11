@@ -1,3 +1,12 @@
+local wk = require("which-key")
+local map = function(mode, lhs, rhs, opts)
+    local defaults = { silent = true, noremap = true }
+    if opts then
+        defaults = vim.tbl_extend("force", defaults, opts)
+    end
+    vim.keymap.set(mode, lhs, rhs, defaults)
+end
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.opt.number = true
@@ -42,7 +51,6 @@ vim.g.netrw_banner = 0
 vim.opt.shortmess:append({ a = true, I = true, c = true })
 vim.opt.jumpoptions = "view"
 vim.opt.laststatus = 3
-
 vim.api.nvim_create_autocmd("FileType", {
     desc = "remove formatoptions",
     callback = function()
@@ -55,45 +63,27 @@ vim.cmd([[command! Wq wq]])
 vim.cmd([[command! WQ wq]])
 vim.cmd([[command! Q q]])
 
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Moves Line Down" })
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Moves Line Up" })
+map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Moves Line Down" })
+map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Moves Line Up" })
 
-vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll Down" })
-vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll Up" })
-vim.keymap.set("n", "n", "nzzzv", { desc = "Next Search Result" })
-vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous Search Result" })
+map("n", "<C-d>", "<C-d>zz", { desc = "Scroll Down" })
+map("n", "<C-u>", "<C-u>zz", { desc = "Scroll Up" })
+map("n", "n", "nzzzv", { desc = "Next Search Result" })
+map("n", "N", "Nzzzv", { desc = "Previous Search Result" })
 
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
+map({ "n", "v", "x" }, "<leader>y", '"+y', { desc = "Yank to clipboard" })
+map({ "n", "v", "x" }, "<leader>p", '"+p', { desc = "Paste from clipboard" })
+map({ "v", "x" }, "p", '"_dP')
 
-vim.keymap.set({ "n", "v", "x" }, "<leader>y", '"+y', { noremap = true, silent = true, desc = "Yank to clipboard" })
-vim.keymap.set(
-    { "n", "v", "x" },
-    "<leader>Y",
-    '"+yy',
-    { noremap = true, silent = true, desc = "Yank line to clipboard" }
-)
-vim.keymap.set({ "n", "v", "x" }, "<C-a>", "gg0vG$", { noremap = true, silent = true, desc = "Select all" })
-vim.keymap.set({ "n", "v", "x" }, "<leader>p", '"+p', { noremap = true, silent = true, desc = "Paste from clipboard" })
-vim.keymap.set(
-    "i",
-    "<C-p>",
-    "<C-r><C-p>+",
-    { noremap = true, silent = true, desc = "Paste from clipboard from within insert mode" }
-)
-vim.keymap.set(
-    "x",
-    "<leader>P",
-    '"_dP',
-    { noremap = true, silent = true, desc = "Paste over selection without erasing unnamed register" }
-)
+wk.add({ "<leader>d", group = "LSP [d]iagnostics" })
+map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [d]iagnostic message" })
+map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [d]iagnostic message" })
+map("n", "<leader>df", vim.diagnostic.open_float, { desc = "Open [f]loating diagnostic message" })
+map("n", "<leader>dq", vim.diagnostic.setloclist, { desc = "Open diagnostics [q]uickfix list" })
 
 vim.cmd.colorscheme("unokai")
 
 require("lualine").setup({})
-local wk = require("which-key")
 
 wk.add({ "<leader>g", group = "[g]it stuff" })
 vim.keymap.set("n", "<leader>gl", function()
@@ -101,6 +91,57 @@ vim.keymap.set("n", "<leader>gl", function()
     vim.cmd("redraw!")
 end, { noremap = true, silent = true, desc = "Open lazygit in a zellij floating window" })
 require("gitsigns").setup()
+
+local persistence = require("persistence")
+persistence.setup({})
+vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function()
+        if vim.fn.argc() == 0 then
+            persistence.load()
+            vim.cmd("bufdo doautocmd BufRead")
+        end
+    end,
+})
+wk.add({ "<leader>i", group = "Sess[i]on" })
+map("n", "<leader>i.", function()
+    persistence.load()
+end, { desc = "load current [.]" })
+map("n", "<leader>ic", function()
+    persistence.select()
+end, { desc = "[c]hoose" })
+
+local snacks = require("snacks")
+snacks.setup({
+    scratch = { enabled = true },
+    picker = { enabled = true },
+})
+
+wk.add({ "<leader>k", group = "S[k]ratch" })
+local function get_scratch_config(ft)
+    local handle = io.popen("readlink -f $(git rev-parse --show-toplevel) 2>/dev/null")
+    local git_repo = handle and handle:read("*a"):gsub("\n", "") or nil
+    if handle then
+        handle:close()
+    end
+    return {
+        name = git_repo or "Scratch",
+        ft = ft,
+        filekey = {
+            cwd = not git_repo,
+            branch = false,
+            count = false,
+        },
+    }
+end
+map("n", "<leader>k.", function()
+    snacks.scratch.open(get_scratch_config("markdown"))
+end, { desc = "[.]current project" })
+map("n", "<leader>kf", function()
+    snacks.scratch.open(get_scratch_config())
+end, { desc = "[f]iletype-specific" })
+map("n", "<leader>kc", function()
+    snacks.scratch.select()
+end, { desc = "[c]hoose" })
 
 require("nvim-treesitter.configs").setup({
     highlight = { enable = true },
@@ -116,70 +157,6 @@ require("nvim-treesitter.configs").setup({
     },
 })
 
-local snacks = require("snacks")
-
-snacks.setup({
-    scratch = { enabled = true },
-    picker = { enabled = true },
-})
-
--- persistence
-local persistence = require("persistence")
-persistence.setup({})
-
-vim.api.nvim_create_autocmd("VimEnter", {
-    callback = function()
-        if vim.fn.argc() == 0 then
-            persistence.load()
-            vim.cmd("bufdo doautocmd BufRead")
-        end
-    end,
-})
-
-wk.add({ "<leader>i", group = "Sess[i]on" })
-
-vim.keymap.set("n", "<leader>i.", function()
-    persistence.load()
-end, { desc = "load the session for the [.]current dir" })
-
-vim.keymap.set("n", "<leader>ic", function()
-    persistence.select()
-end, { desc = "[c]hoose a previously saved session" })
-
--- scratch file
-wk.add({ "<leader>k", group = "S[k]ratch" })
-
-local function get_scratch_config(ft)
-    local handle = io.popen("readlink -f $(git rev-parse --show-toplevel) 2>/dev/null")
-    local git_repo = handle and handle:read("*a"):gsub("\n", "") or nil
-    if handle then
-        handle:close()
-    end
-
-    return {
-        name = git_repo or "Scratch",
-        ft = ft,
-        filekey = {
-            cwd = not git_repo,
-            branch = false,
-            count = false,
-        },
-    }
-end
-
-vim.keymap.set("n", "<leader>k.", function()
-    snacks.scratch.open(get_scratch_config("markdown"))
-end, { desc = "Toggle markdown scratchfile for the [.]current project" })
-
-vim.keymap.set("n", "<leader>kf", function()
-    snacks.scratch.open(get_scratch_config())
-end, { desc = "Toggle [f]iletype-specific scratchfile for the current project" })
-
-vim.keymap.set("n", "<leader>kc", function()
-    snacks.scratch.select()
-end, { desc = "[c]hoose a scratchfile" })
-
--- LSP and formatters
 vim.lsp.config("lua_ls", {
     settings = {
         Lua = {
@@ -205,26 +182,8 @@ vim.lsp.enable("rust_analyzer")
 require("copilot").setup({ panel = { enabled = false }, suggestions = { enabled = false } })
 require("CopilotChat").setup({})
 
--- Completion
-local blink = require("blink.cmp")
-blink.setup({
-    cmdline = { enabled = false },
-    sources = { default = { "lsp", "buffer", "snippets", "path", "copilot", "ripgrep" } },
-})
-blink.add_source_provider("copilot", {
-    name = "copilot",
-    module = "blink-copilot",
-    score_offset = 100,
-    async = true,
-})
-blink.add_source_provider("ripgrep", {
-    name = "ripgrep",
-    module = "blink-ripgrep",
-    score_offset = 10,
-    async = true,
-})
-
 require("conform").setup({
+    default_format_opts = { timeout_ms = 3000, lsp_format = "fallback" },
     formatters_by_ft = {
         lua = { "stylua" },
         python = { "ruff_format", "ruff_organize_imports" },
@@ -240,7 +199,18 @@ require("conform").setup({
         rust = { "rustfmt" },
     },
     formatters = {
-        stylua = { prepend_args = { "--indent-type", "Spaces" } },
+        stylua = {
+            prepend_args = {
+                "--indent-type",
+                "Spaces",
+                "--indent-width",
+                2,
+                "--column-width",
+                120,
+                "--collapse-simple-statement",
+                "Always",
+            },
+        },
     },
     format_on_save = function(bufnr)
         local long_fmt_filetypes = { "html" }
@@ -251,100 +221,58 @@ require("conform").setup({
     end,
 })
 
--- flash
-require("flash").setup({ modes = { search = { enabled = true } } })
-wk.add({
-    {
-        mode = { "n", "x", "o" },
-        {
-            "s",
-            function()
-                require("flash").jump()
-            end,
-            desc = "Fla[s]h (local)",
-        },
-        {
-            "S",
-            function()
-                require("flash").treesitter()
-            end,
-            desc = "Flash tree[S]itter (local)",
-        },
-    },
-    {
-        "r",
-        mode = "o",
-        function()
-            require("flash").remote()
-        end,
-        desc = "Flash ([r]emote)",
-    },
-    {
-        "R",
-        mode = { "o", "x" },
-        function()
-            require("flash").treesitter_search()
-        end,
-        desc = "Flash treesitter ([R]emote)",
-    },
-    {
-        "<c-s>",
-        mode = { "c" },
-        function()
-            require("flash").toggle()
-        end,
-        desc = "Toggle Fla[^s]h Search",
+local blink = require("blink.cmp")
+blink.setup({
+    cmdline = { enabled = false },
+    sources = { default = { "lsp", "buffer", "snippets", "path", "copilot", "ripgrep" } },
+    completion = {
+        documentation = { auto_show = true, auto_show_delay_ms = 200 },
+        ghost_text = { enabled = true },
     },
 })
+blink.add_source_provider("copilot", {
+    name = "copilot",
+    module = "blink-copilot",
+    score_offset = 0,
+    async = true,
+})
+blink.add_source_provider("ripgrep", {
+    name = "ripgrep",
+    module = "blink-ripgrep",
+    score_offset = -3,
+    async = true,
+})
 
---
+require("flash").setup({ modes = { search = { enabled = true } } })
+map({ "n", "x", "o" }, "s", function()
+    require("flash").jump()
+end, { desc = "Fla[s]h" })
+map({ "n", "x", "o" }, "S", function()
+    require("flash").treesitter()
+end, { desc = "Flash tree[S]itter" })
+map({ "o" }, "r", function()
+    require("flash").remote()
+end, { "flash [r]emote" })
+map({ "o", "x" }, "R", function()
+    require("flash").treesitter_search()
+end, { "Flash treesitter [R]emote" })
+map({ "s" }, "<C-s>", function()
+    require("flash").toggle()
+end, { "Toggle Fla[^s]h Search" })
+
 require("hardtime").setup()
 
-wk.add({
-    {
-        mode = { "n" },
-        {
-            "<M-k>",
-            function()
-                require("dial.map").manipulate("increment", "normal")
-            end,
-            desc = "Dial increment",
-        },
-        {
-            "<M-j>",
-            function()
-                require("dial.map").manipulate("decrement", "normal")
-            end,
-            desc = "Dial decrement",
-        },
-    },
-    {
-        mode = { "v" },
-        {
-            "<M-k>",
-            function()
-                require("dial.map").manipulate("increment", "visual")
-            end,
-            desc = "Dial increment",
-        },
-        {
-            "<M-j>",
-            function()
-                require("dial.map").manipulate("decrement", "visual")
-            end,
-            desc = "Dial decrement",
-        },
-    },
-})
+map({ "n" }, "<M-k>", function()
+    require("dial.map").manipulate("increment", "normal")
+end, { desc = "Dial increment" })
+map({ "n" }, "<M-j>", function()
+    require("dial.map").manipulate("decrement", "normal")
+end, { desc = "Dial decrement" })
+map({ "v" }, "<M-k>", function()
+    require("dial.map").manipulate("increment", "visual")
+end, { desc = "Dial increment" })
+map({ "v" }, "<M-j>", function()
+    require("dial.map").manipulate("decrement", "visual")
+end, { desc = "Dial decrement" })
 
---
-wk.add({
-    {
-        mode = { "n" },
-        {
-            "<leader><leader>",
-            "@r",
-            desc = "Run macro in register 'r'",
-        },
-    },
-})
+map({ "n" }, "<leader><leader>", "@r", { desc = "Run macro in register 'r'" })
