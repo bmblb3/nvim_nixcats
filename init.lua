@@ -1,10 +1,8 @@
 local wk = require("which-key")
 local map = function(mode, lhs, rhs, opts)
-    local defaults = { silent = true, noremap = true }
-    if opts then
-        defaults = vim.tbl_extend("force", defaults, opts)
-    end
-    vim.keymap.set(mode, lhs, rhs, defaults)
+  local defaults = { silent = true, noremap = true }
+  if opts then defaults = vim.tbl_extend("force", defaults, opts) end
+  vim.keymap.set(mode, lhs, rhs, defaults)
 end
 
 vim.g.mapleader = " "
@@ -52,10 +50,8 @@ vim.opt.shortmess:append({ a = true, I = true, c = true })
 vim.opt.jumpoptions = "view"
 vim.opt.laststatus = 3
 vim.api.nvim_create_autocmd("FileType", {
-    desc = "remove formatoptions",
-    callback = function()
-        vim.opt.formatoptions:remove({ "c", "r", "o" })
-    end,
+  desc = "remove formatoptions",
+  callback = function() vim.opt.formatoptions:remove({ "c", "r", "o" }) end,
 })
 
 vim.cmd([[command! W w]])
@@ -87,84 +83,77 @@ require("lualine").setup({})
 
 wk.add({ "<leader>g", group = "[g]it stuff" })
 vim.keymap.set("n", "<leader>gl", function()
-    vim.cmd("silent !zellij run --in-place --close-on-exit -- lazygit")
-    vim.cmd("redraw!")
+  vim.cmd("silent !zellij run --in-place --close-on-exit -- lazygit")
+  vim.cmd("redraw!")
 end, { noremap = true, silent = true, desc = "Open lazygit in a zellij floating window" })
 require("gitsigns").setup()
 
 local persistence = require("persistence")
 persistence.setup({})
 vim.api.nvim_create_autocmd("VimEnter", {
-    callback = function()
-        if vim.fn.argc() == 0 then
-            persistence.load()
-            vim.cmd("bufdo doautocmd BufRead")
-        end
-    end,
+  callback = function()
+    if vim.fn.argc() == 0 then
+      persistence.load()
+      vim.cmd("bufdo doautocmd BufRead")
+    end
+  end,
 })
 wk.add({ "<leader>i", group = "Sess[i]on" })
-map("n", "<leader>i.", function()
-    persistence.load()
-end, { desc = "load current [.]" })
-map("n", "<leader>ic", function()
-    persistence.select()
-end, { desc = "[c]hoose" })
+map("n", "<leader>i.", function() persistence.load() end, { desc = "load current [.]" })
+map("n", "<leader>ic", function() persistence.select() end, { desc = "[c]hoose" })
 
 local snacks = require("snacks")
 snacks.setup({
-    scratch = { enabled = true },
-    picker = { enabled = true },
+  scratch = { enabled = true },
+  picker = { enabled = true },
 })
 
 wk.add({ "<leader>k", group = "S[k]ratch" })
 local function get_scratch_config(ft)
-    local handle = io.popen("readlink -f $(git rev-parse --show-toplevel) 2>/dev/null")
-    local git_repo = handle and handle:read("*a"):gsub("\n", "") or nil
-    if handle then
-        handle:close()
-    end
-    return {
-        name = git_repo or "Scratch",
-        ft = ft,
-        filekey = {
-            cwd = not git_repo,
-            branch = false,
-            count = false,
-        },
-    }
+  local handle = io.popen("readlink -f $(git rev-parse --show-toplevel) 2>/dev/null")
+  local git_repo = handle and handle:read("*a"):gsub("\n", "") or nil
+  if handle then handle:close() end
+  return {
+    name = git_repo or "Scratch",
+    ft = ft,
+    filekey = {
+      cwd = not git_repo,
+      branch = false,
+      count = false,
+    },
+  }
 end
-map("n", "<leader>k.", function()
-    snacks.scratch.open(get_scratch_config("markdown"))
-end, { desc = "[.]current project" })
-map("n", "<leader>kf", function()
-    snacks.scratch.open(get_scratch_config())
-end, { desc = "[f]iletype-specific" })
-map("n", "<leader>kc", function()
-    snacks.scratch.select()
-end, { desc = "[c]hoose" })
+map(
+  "n",
+  "<leader>k.",
+  function() snacks.scratch.open(get_scratch_config("markdown")) end,
+  { desc = "[.]current project" }
+)
+map("n", "<leader>kf", function() snacks.scratch.open(get_scratch_config()) end, { desc = "[f]iletype-specific" })
+map("n", "<leader>kc", function() snacks.scratch.select() end, { desc = "[c]hoose" })
 
 require("nvim-treesitter.configs").setup({
-    highlight = { enable = true },
-    indent = { enable = true },
-    incremental_selection = {
-        enable = true,
-        keymaps = {
-            init_selection = "<C-space>",
-            node_incremental = "<C-space>",
-            scope_incremental = false,
-            node_decremental = "<bs>",
-        },
+  highlight = { enable = true },
+  indent = { enable = true },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "<C-space>",
+      node_incremental = "<C-space>",
+      scope_incremental = false,
+      node_decremental = "<bs>",
     },
+  },
 })
 
 vim.lsp.config("lua_ls", {
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { "vim" },
-            },
-        },
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { "vim" },
+      },
     },
+  },
 })
 vim.lsp.enable("basedpyright")
 vim.lsp.enable("bashls")
@@ -183,96 +172,78 @@ require("copilot").setup({ panel = { enabled = false }, suggestions = { enabled 
 require("CopilotChat").setup({})
 
 require("conform").setup({
-    default_format_opts = { timeout_ms = 3000, lsp_format = "fallback" },
-    formatters_by_ft = {
-        lua = { "stylua" },
-        python = { "ruff_format", "ruff_organize_imports" },
-        css = { "prettierd" },
-        javascript = { "prettierd" },
-        typescript = { "prettierd" },
-        html = { "prettierd", "djlint" },
-        yaml = { "prettierd" },
-        sh = { "shellharden", "shfmt", "shellcheck" },
-        java = { "google-java-format" },
-        nix = { "nixfmt" },
-        typst = { "typstyle" },
-        rust = { "rustfmt" },
+  default_format_opts = { timeout_ms = 3000, lsp_format = "fallback" },
+  formatters_by_ft = {
+    lua = { "stylua" },
+    python = { "ruff_format", "ruff_organize_imports" },
+    css = { "prettierd" },
+    javascript = { "prettierd" },
+    typescript = { "prettierd" },
+    html = { "prettierd", "djlint" },
+    yaml = { "prettierd" },
+    sh = { "shellharden", "shfmt", "shellcheck" },
+    java = { "google-java-format" },
+    nix = { "nixfmt" },
+    typst = { "typstyle" },
+    rust = { "rustfmt" },
+  },
+  formatters = {
+    stylua = {
+      prepend_args = {
+        "--indent-type",
+        "Spaces",
+        "--indent-width",
+        2,
+        "--column-width",
+        120,
+        "--collapse-simple-statement",
+        "Always",
+      },
     },
-    formatters = {
-        stylua = {
-            prepend_args = {
-                "--indent-type",
-                "Spaces",
-                "--indent-width",
-                2,
-                "--column-width",
-                120,
-                "--collapse-simple-statement",
-                "Always",
-            },
-        },
-    },
-    format_on_save = function(bufnr)
-        local long_fmt_filetypes = { "html" }
-        if vim.tbl_contains(long_fmt_filetypes, vim.bo[bufnr].filetype) then
-            return { timeout_ms = 5000, lsp_format = "fallback" }
-        end
-        return { timeout_ms = 500, lsp_format = "fallback" }
-    end,
+  },
+  format_on_save = function(bufnr)
+    local long_fmt_filetypes = { "html" }
+    if vim.tbl_contains(long_fmt_filetypes, vim.bo[bufnr].filetype) then
+      return { timeout_ms = 5000, lsp_format = "fallback" }
+    end
+    return { timeout_ms = 500, lsp_format = "fallback" }
+  end,
 })
 
 local blink = require("blink.cmp")
 blink.setup({
-    cmdline = { enabled = false },
-    sources = { default = { "lsp", "buffer", "snippets", "path", "copilot", "ripgrep" } },
-    completion = {
-        documentation = { auto_show = true, auto_show_delay_ms = 200 },
-        ghost_text = { enabled = true },
-    },
+  cmdline = { enabled = false },
+  sources = { default = { "lsp", "buffer", "snippets", "path", "copilot", "ripgrep" } },
+  completion = {
+    documentation = { auto_show = true, auto_show_delay_ms = 200 },
+    ghost_text = { enabled = true },
+  },
 })
 blink.add_source_provider("copilot", {
-    name = "copilot",
-    module = "blink-copilot",
-    score_offset = 0,
-    async = true,
+  name = "copilot",
+  module = "blink-copilot",
+  score_offset = 0,
+  async = true,
 })
 blink.add_source_provider("ripgrep", {
-    name = "ripgrep",
-    module = "blink-ripgrep",
-    score_offset = -3,
-    async = true,
+  name = "ripgrep",
+  module = "blink-ripgrep",
+  score_offset = -3,
+  async = true,
 })
 
 require("flash").setup({ modes = { search = { enabled = true } } })
-map({ "n", "x", "o" }, "s", function()
-    require("flash").jump()
-end, { desc = "Fla[s]h" })
-map({ "n", "x", "o" }, "S", function()
-    require("flash").treesitter()
-end, { desc = "Flash tree[S]itter" })
-map({ "o" }, "r", function()
-    require("flash").remote()
-end, { "flash [r]emote" })
-map({ "o", "x" }, "R", function()
-    require("flash").treesitter_search()
-end, { "Flash treesitter [R]emote" })
-map({ "s" }, "<C-s>", function()
-    require("flash").toggle()
-end, { "Toggle Fla[^s]h Search" })
+map({ "n", "x", "o" }, "s", function() require("flash").jump() end, { desc = "Fla[s]h" })
+map({ "n", "x", "o" }, "S", function() require("flash").treesitter() end, { desc = "Flash tree[S]itter" })
+map({ "o" }, "r", function() require("flash").remote() end, { "flash [r]emote" })
+map({ "o", "x" }, "R", function() require("flash").treesitter_search() end, { "Flash treesitter [R]emote" })
+map({ "s" }, "<C-s>", function() require("flash").toggle() end, { "Toggle Fla[^s]h Search" })
 
 require("hardtime").setup()
 
-map({ "n" }, "<M-k>", function()
-    require("dial.map").manipulate("increment", "normal")
-end, { desc = "Dial increment" })
-map({ "n" }, "<M-j>", function()
-    require("dial.map").manipulate("decrement", "normal")
-end, { desc = "Dial decrement" })
-map({ "v" }, "<M-k>", function()
-    require("dial.map").manipulate("increment", "visual")
-end, { desc = "Dial increment" })
-map({ "v" }, "<M-j>", function()
-    require("dial.map").manipulate("decrement", "visual")
-end, { desc = "Dial decrement" })
+map({ "n" }, "<M-k>", function() require("dial.map").manipulate("increment", "normal") end, { desc = "Dial increment" })
+map({ "n" }, "<M-j>", function() require("dial.map").manipulate("decrement", "normal") end, { desc = "Dial decrement" })
+map({ "v" }, "<M-k>", function() require("dial.map").manipulate("increment", "visual") end, { desc = "Dial increment" })
+map({ "v" }, "<M-j>", function() require("dial.map").manipulate("decrement", "visual") end, { desc = "Dial decrement" })
 
 map({ "n" }, "<leader><leader>", "@r", { desc = "Run macro in register 'r'" })
