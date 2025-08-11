@@ -82,7 +82,7 @@ vim.cmd.colorscheme("unokai")
 require("lualine").setup({})
 
 wk.add({ "<leader>g", group = "[g]it stuff" })
-vim.keymap.set("n", "<leader>gl", function()
+map("n", "<leader>gl", function()
   vim.cmd("silent !zellij run --in-place --close-on-exit -- lazygit")
   vim.cmd("redraw!")
 end, { noremap = true, silent = true, desc = "Open lazygit in a zellij floating window" })
