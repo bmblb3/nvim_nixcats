@@ -80,6 +80,7 @@
               gitsigns-nvim
               hardtime-nvim
               dial-nvim
+              vim-dirdiff
             ];
           };
           # optionalPlugins = { };
