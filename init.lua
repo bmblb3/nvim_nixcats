@@ -252,5 +252,3 @@ map({ "n" }, "<M-k>", function() require("dial.map").manipulate("increment", "no
 map({ "n" }, "<M-j>", function() require("dial.map").manipulate("decrement", "normal") end, { desc = "Dial decrement" })
 map({ "v" }, "<M-k>", function() require("dial.map").manipulate("increment", "visual") end, { desc = "Dial increment" })
 map({ "v" }, "<M-j>", function() require("dial.map").manipulate("decrement", "visual") end, { desc = "Dial decrement" })
-
-map({ "n" }, "<leader><leader>", "@r", { desc = "Run macro in register 'r'" })
