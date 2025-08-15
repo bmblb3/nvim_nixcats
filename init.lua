@@ -45,6 +45,7 @@ vim.opt.splitright = true
 vim.opt.splitkeep = "screen"
 vim.opt.wrap = false
 vim.g.netrw_liststyle = 3
+vim.g.netrw_silent = 1
 vim.g.netrw_banner = 0
 vim.opt.shortmess:append({ a = true, I = true, c = true })
 vim.opt.jumpoptions = "view"
