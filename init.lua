@@ -218,6 +218,7 @@ require("conform").setup({
     return { timeout_ms = 500, lsp_format = "fallback" }
   end,
 })
+map("", "<leader>f", function() require("conform").format({ async = true, lsp_fallback = true }) end)
 
 local blink = require("blink.cmp")
 blink.setup({
