@@ -209,7 +209,7 @@ require("conform").setup({
     },
   },
   format_on_save = function(bufnr)
-    if vim.api.nvim_buf_get_name(bufnr):match("^/scp:") then return end
+    if vim.api.nvim_buf_get_name(bufnr):match("^scp:") then return end
     local long_fmt_filetypes = { "html" }
     if vim.tbl_contains(long_fmt_filetypes, vim.bo[bufnr].filetype) then
       return { timeout_ms = 5000, lsp_format = "fallback" }
