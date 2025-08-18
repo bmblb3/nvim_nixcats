@@ -55,6 +55,8 @@ vim.api.nvim_create_autocmd("FileType", {
   desc = "remove formatoptions",
   callback = function() vim.opt.formatoptions:remove({ "c", "r", "o" }) end,
 })
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_python_provider = 0
 
 vim.cmd([[command! W w]])
 vim.cmd([[command! Wq wq]])
