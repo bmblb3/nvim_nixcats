@@ -5,6 +5,7 @@ local map = function(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, defaults)
 end
 
+vim.loader.enable()
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.opt.number = true
