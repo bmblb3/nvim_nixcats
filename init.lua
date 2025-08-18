@@ -1,4 +1,5 @@
 local wk = require("which-key")
+local snacks = require("snacks")
 local map = function(mode, lhs, rhs, opts)
   local defaults = { silent = true, noremap = true }
   if opts then defaults = vim.tbl_extend("force", defaults, opts) end
@@ -86,10 +87,7 @@ vim.cmd.colorscheme("unokai")
 require("lualine").setup({})
 
 wk.add({ "<leader>g", group = "[g]it stuff" })
-map("n", "<leader>gl", function()
-  vim.cmd("silent !zellij run --in-place --close-on-exit -- lazygit")
-  vim.cmd("redraw!")
-end, { noremap = true, silent = true, desc = "Open lazygit in a zellij floating window" })
+map("n", "<leader>gl", function() snacks.lazygit.open() end, { noremap = true, silent = true, desc = "Open lazygit" })
 require("gitsigns").setup()
 
 local persistence = require("persistence")
@@ -106,7 +104,6 @@ wk.add({ "<leader>i", group = "Sess[i]on" })
 map("n", "<leader>i.", function() persistence.load() end, { desc = "load current [.]" })
 map("n", "<leader>ic", function() persistence.select() end, { desc = "[c]hoose" })
 
-local snacks = require("snacks")
 snacks.setup({
   scratch = { enabled = true },
   picker = { enabled = true },
