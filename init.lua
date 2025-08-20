@@ -1,5 +1,3 @@
-local wk = require("which-key")
-local snacks = require("snacks")
 local map = function(mode, lhs, rhs, opts)
   local defaults = { silent = true, noremap = true }
   if opts then defaults = vim.tbl_extend("force", defaults, opts) end
@@ -59,6 +57,8 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_python_provider = 0
 
+local wk = require("which-key")
+local snacks = require("snacks")
 vim.cmd([[command! W w]])
 vim.cmd([[command! Wq wq]])
 vim.cmd([[command! WQ wq]])
