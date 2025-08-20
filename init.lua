@@ -236,24 +236,25 @@ vim.lsp.enable("tailwindcss")
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("yamlls")
 vim.lsp.enable("rust_analyzer")
+
+wk.add({ "<leader>ai", group = "[AI]" })
 require("copilot").setup({
   panel = { enabled = false },
   suggestions = { enabled = false },
 })
-local copilot = require("CopilotChat")
-copilot().setup({})
-wk.add({ "<leader>ai", group = "[AI]" })
-map({ "n", "v" }, "<leader>aic", function() copilot.toggle() end, { desc = "Chat" })
+local copilotchat = require("CopilotChat")
+copilotchat.setup({})
+map({ "n", "v" }, "<leader>aic", function() copilotchat.toggle() end, { desc = "Chat" })
 map(
   { "n", "v" },
   "<leader>aip",
-  function() copilot.select_prompt() end,
+  function() copilotchat.select_prompt() end,
   { desc = "Pick Prompt" }
 )
 map(
   { "n", "v" },
   "<leader>aim",
-  function() copilot.select_model() end,
+  function() copilotchat.select_model() end,
   { desc = "Pick Model" }
 )
 
