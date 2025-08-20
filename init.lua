@@ -157,9 +157,19 @@ map(
 )
 map(
   "n",
-  "<leader>kl",
-  function() snacks.scratch.open(get_scratch_config("lua", "cmds")) end,
-  { desc = "[l]ua commands" }
+  "<leader>kk",
+  function()
+    snacks.scratch.open({
+      name = "LUA",
+      ft = "lua",
+      filekey = {
+        cwd = false,
+        branch = false,
+        count = false,
+      },
+    })
+  end,
+  { desc = "Handy lua" }
 )
 map("n", "<leader>kf", function() snacks.scratch.open(get_scratch_config()) end, { desc = "[f]iletype-specific" })
 map("n", "<leader>kc", function() snacks.scratch.select() end, { desc = "[c]hoose" })
