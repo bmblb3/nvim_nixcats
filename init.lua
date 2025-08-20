@@ -38,7 +38,8 @@ vim.opt.completeopt = "menu,menuone,preview,noselect"
 vim.opt.cursorline = true
 vim.opt.pumblend = 10
 vim.opt.pumheight = 10
-vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
+vim.opt.sessionoptions =
+  { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 vim.opt.showmode = false
 vim.opt.splitbelow = true
 vim.opt.splitright = true
@@ -74,13 +75,28 @@ map("n", "N", "Nzzzv", { desc = "Previous Search Result" })
 
 map({ "n", "v", "x" }, "<leader>y", '"+y', { desc = "Yank to clipboard" })
 map({ "n", "v", "x" }, "<leader>p", '"+p', { desc = "Paste from clipboard" })
-map({ "v", "x" }, "p", '"_dP', { desc = "Keep unammed register when overwriting in visual mode" })
+map(
+  { "v", "x" },
+  "p",
+  '"_dP',
+  { desc = "Keep unammed register when overwriting in visual mode" }
+)
 
 wk.add({ "<leader>d", group = "LSP [d]iagnostics" })
 map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [d]iagnostic message" })
 map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [d]iagnostic message" })
-map("n", "<leader>df", vim.diagnostic.open_float, { desc = "Open [f]loating diagnostic message" })
-map("n", "<leader>dq", vim.diagnostic.setloclist, { desc = "Open diagnostics [q]uickfix list" })
+map(
+  "n",
+  "<leader>df",
+  vim.diagnostic.open_float,
+  { desc = "Open [f]loating diagnostic message" }
+)
+map(
+  "n",
+  "<leader>dq",
+  vim.diagnostic.setloclist,
+  { desc = "Open diagnostics [q]uickfix list" }
+)
 
 vim.cmd.colorscheme("unokai")
 
@@ -88,7 +104,12 @@ require("lualine").setup({})
 
 require("gitsigns").setup()
 wk.add({ "<leader>g", group = "[g]it stuff" })
-map("n", "<leader>gl", function() snacks.lazygit.open() end, { noremap = true, silent = true, desc = "Open lazygit" })
+map(
+  "n",
+  "<leader>gl",
+  function() snacks.lazygit.open() end,
+  { noremap = true, silent = true, desc = "Open lazygit" }
+)
 map(
   "n",
   "<leader>g]",
@@ -171,7 +192,12 @@ map(
   end,
   { desc = "Handy lua" }
 )
-map("n", "<leader>kf", function() snacks.scratch.open(get_scratch_config()) end, { desc = "[f]iletype-specific" })
+map(
+  "n",
+  "<leader>kf",
+  function() snacks.scratch.open(get_scratch_config()) end,
+  { desc = "[f]iletype-specific" }
+)
 map("n", "<leader>kc", function() snacks.scratch.select() end, { desc = "[c]hoose" })
 
 require("nvim-treesitter.configs").setup({
@@ -210,7 +236,10 @@ vim.lsp.enable("tailwindcss")
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("yamlls")
 vim.lsp.enable("rust_analyzer")
-require("copilot").setup({ panel = { enabled = false }, suggestions = { enabled = false } })
+require("copilot").setup({
+  panel = { enabled = false },
+  suggestions = { enabled = false },
+})
 require("CopilotChat").setup({})
 
 require("conform").setup({
@@ -251,7 +280,11 @@ require("conform").setup({
     return { timeout_ms = 500, lsp_format = "fallback" }
   end,
 })
-map("", "<leader>f", function() require("conform").format({ async = true, lsp_fallback = true }) end)
+map(
+  "",
+  "<leader>f",
+  function() require("conform").format({ async = true, lsp_fallback = true }) end
+)
 
 local blink = require("blink.cmp")
 blink.setup({
@@ -277,14 +310,49 @@ blink.add_source_provider("ripgrep", {
 
 require("flash").setup({ modes = { search = { enabled = true } } })
 map({ "n", "x", "o" }, "s", function() require("flash").jump() end, { desc = "Fla[s]h" })
-map({ "n", "x", "o" }, "S", function() require("flash").treesitter() end, { desc = "Flash tree[S]itter" })
+map(
+  { "n", "x", "o" },
+  "S",
+  function() require("flash").treesitter() end,
+  { desc = "Flash tree[S]itter" }
+)
 map({ "o" }, "r", function() require("flash").remote() end, { desc = "flash [r]emote" })
-map({ "o", "x" }, "R", function() require("flash").treesitter_search() end, { desc = "Flash treesitter [R]emote" })
-map({ "s" }, "<C-s>", function() require("flash").toggle() end, { desc = "Toggle Fla[^s]h Search" })
+map(
+  { "o", "x" },
+  "R",
+  function() require("flash").treesitter_search() end,
+  { desc = "Flash treesitter [R]emote" }
+)
+map(
+  { "s" },
+  "<C-s>",
+  function() require("flash").toggle() end,
+  { desc = "Toggle Fla[^s]h Search" }
+)
 
 require("hardtime").setup()
 
-map({ "n" }, "<M-k>", function() require("dial.map").manipulate("increment", "normal") end, { desc = "Dial increment" })
-map({ "n" }, "<M-j>", function() require("dial.map").manipulate("decrement", "normal") end, { desc = "Dial decrement" })
-map({ "v" }, "<M-k>", function() require("dial.map").manipulate("increment", "visual") end, { desc = "Dial increment" })
-map({ "v" }, "<M-j>", function() require("dial.map").manipulate("decrement", "visual") end, { desc = "Dial decrement" })
+map(
+  { "n" },
+  "<M-k>",
+  function() require("dial.map").manipulate("increment", "normal") end,
+  { desc = "Dial increment" }
+)
+map(
+  { "n" },
+  "<M-j>",
+  function() require("dial.map").manipulate("decrement", "normal") end,
+  { desc = "Dial decrement" }
+)
+map(
+  { "v" },
+  "<M-k>",
+  function() require("dial.map").manipulate("increment", "visual") end,
+  { desc = "Dial increment" }
+)
+map(
+  { "v" },
+  "<M-j>",
+  function() require("dial.map").manipulate("decrement", "visual") end,
+  { desc = "Dial decrement" }
+)
