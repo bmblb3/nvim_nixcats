@@ -203,7 +203,7 @@ require("conform").setup({
         "--indent-width",
         2,
         "--column-width",
-        120,
+        90,
         "--collapse-simple-statement",
         "Always",
       },
