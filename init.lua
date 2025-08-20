@@ -111,16 +111,16 @@ map(
   { noremap = true, silent = true, desc = "Open lazygit" }
 )
 map(
-  "n",
-  "<leader>g]",
+  { "n", "o" },
+  "]g",
   function() vim.cmd("Gitsigns next_hunk") end,
-  { noremap = true, silent = true, desc = "Next hunk" }
+  { noremap = true, silent = true, desc = "Next git hunk" }
 )
 map(
-  "n",
-  "<leader>g[",
+  { "n", "o" },
+  "[g",
   function() vim.cmd("Gitsigns prev_hunk") end,
-  { noremap = true, silent = true, desc = "Prev hunk" }
+  { noremap = true, silent = true, desc = "Prev git hunk" }
 )
 map(
   "n",
