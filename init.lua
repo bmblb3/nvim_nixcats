@@ -59,7 +59,6 @@ vim.g.loaded_python3_provider = 0
 vim.g.loaded_python_provider = 0
 
 local wk = require("which-key")
-local snacks = require("snacks")
 vim.cmd([[command! W w]])
 vim.cmd([[command! Wq wq]])
 vim.cmd([[command! WQ wq]])
@@ -101,6 +100,16 @@ map(
 vim.cmd.colorscheme("unokai")
 
 require("lualine").setup({})
+
+local snacks = require("snacks")
+local picker = snacks.picker
+wk.add({ "<leader>p", group = "[p]icker" })
+map(
+  "n",
+  "<leader>pp",
+  function() picker() end,
+  { noremap = true, silent = true, desc = "list pickers" }
+)
 
 require("gitsigns").setup()
 wk.add({ "<leader>g", group = "[g]it stuff" })
