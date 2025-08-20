@@ -86,9 +86,33 @@ vim.cmd.colorscheme("unokai")
 
 require("lualine").setup({})
 
+require("gitsigns").setup()
 wk.add({ "<leader>g", group = "[g]it stuff" })
 map("n", "<leader>gl", function() snacks.lazygit.open() end, { noremap = true, silent = true, desc = "Open lazygit" })
-require("gitsigns").setup()
+map(
+  "n",
+  "<leader>g]",
+  function() vim.cmd("Gitsigns next_hunk") end,
+  { noremap = true, silent = true, desc = "Next hunk" }
+)
+map(
+  "n",
+  "<leader>g[",
+  function() vim.cmd("Gitsigns prev_hunk") end,
+  { noremap = true, silent = true, desc = "Prev hunk" }
+)
+map(
+  "n",
+  "<leader>gk",
+  function() vim.cmd("Gitsigns preview_hunk") end,
+  { noremap = true, silent = true, desc = "Preview hunk" }
+)
+map(
+  "n",
+  "<leader>gs",
+  function() vim.cmd("Gitsigns stage_hunk") end,
+  { noremap = true, silent = true, desc = "Stage/unstage hunk" }
+)
 
 local persistence = require("persistence")
 persistence.setup({})
