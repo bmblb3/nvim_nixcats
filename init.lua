@@ -240,7 +240,22 @@ require("copilot").setup({
   panel = { enabled = false },
   suggestions = { enabled = false },
 })
-require("CopilotChat").setup({})
+local copilot = require("CopilotChat")
+copilot().setup({})
+wk.add({ "<leader>ai", group = "[AI]" })
+map({ "n", "v" }, "<leader>aic", function() copilot.toggle() end, { desc = "Chat" })
+map(
+  { "n", "v" },
+  "<leader>aip",
+  function() copilot.select_prompt() end,
+  { desc = "Pick Prompt" }
+)
+map(
+  { "n", "v" },
+  "<leader>aim",
+  function() copilot.select_model() end,
+  { desc = "Pick Model" }
+)
 
 require("conform").setup({
   default_format_opts = { timeout_ms = 3000, lsp_format = "fallback" },
