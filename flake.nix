@@ -82,6 +82,7 @@
               persistence-nvim
               snacks-nvim
               vim-dirdiff
+              vim-monokai-tasty
               which-key-nvim
             ];
           };

@@ -97,7 +97,7 @@ map(
   { desc = "Open diagnostics [q]uickfix list" }
 )
 
-vim.cmd.colorscheme("unokai")
+vim.cmd.colorscheme("vim-monokai-tasty")
 
 require("lualine").setup({})
 
