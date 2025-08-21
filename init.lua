@@ -126,6 +126,12 @@ map(
   { noremap = true, silent = true, desc = "Open lazygit" }
 )
 map(
+  "n",
+  "<leader>gi",
+  function() snacks.terminal("git_remote_create_issue") end,
+  { noremap = true, silent = true, desc = "Open lazygit" }
+)
+map(
   { "n", "o" },
   "]g",
   function() vim.cmd("Gitsigns next_hunk") end,
