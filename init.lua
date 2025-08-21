@@ -192,7 +192,9 @@ map(
   "n",
   "<leader>kk",
   function()
-    snacks.scratch.open(get_scratch_config({ ft = "lua", filekey = { cwd = false } }))
+    snacks.scratch.open(
+      get_scratch_config({ name = "Hacks", ft = "lua", filekey = { cwd = false } })
+    )
   end,
   { desc = "lua hac[k]s" }
 )
