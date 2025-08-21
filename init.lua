@@ -111,8 +111,8 @@ map(
   { noremap = true, silent = true, desc = "list pickers" }
 )
 
-require("gitsigns").setup()
 wk.add({ "<leader>g", group = "[g]it stuff" })
+require("gitsigns").setup()
 map(
   "n",
   "<leader>gl",
