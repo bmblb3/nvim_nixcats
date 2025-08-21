@@ -113,6 +113,12 @@ map(
 
 wk.add({ "<leader>g", group = "[g]it stuff" })
 require("gitsigns").setup()
+local function get_git_repo_name()
+  local handle = io.popen("git rev-parse --show-toplevel 2>/dev/null")
+  local git_repo = handle and handle:read("*a"):gsub("\n", "") or nil
+  if handle then handle:close() end
+  return git_repo
+end
 map(
   "n",
   "<leader>gl",
@@ -164,48 +170,37 @@ snacks.setup({
 })
 
 wk.add({ "<leader>k", group = "S[k]ratch" })
-local function get_scratch_config(ft, fallback_name)
-  fallback_name = fallback_name or "Scratch"
-  local handle = io.popen("readlink -f $(git rev-parse --show-toplevel) 2>/dev/null")
-  local git_repo = handle and handle:read("*a"):gsub("\n", "") or nil
-  if handle then handle:close() end
-  return {
-    name = git_repo or fallback_name,
-    ft = ft,
+
+local function get_scratch_config(opts)
+  local default_opts = {
     filekey = {
-      cwd = not git_repo,
+      cwd = get_git_repo_name() or true,
       branch = false,
       count = false,
     },
   }
+  return vim.tbl_deep_extend("force", default_opts, opts)
 end
+
 map(
   "n",
-  "<leader>k.",
-  function() snacks.scratch.open(get_scratch_config("markdown")) end,
-  { desc = "[.]current project" }
+  "<leader>km",
+  function() snacks.scratch.open(get_scratch_config({ ft = "markdown" })) end,
+  { desc = "[m]arkdown (current project)" }
 )
 map(
   "n",
   "<leader>kk",
   function()
-    snacks.scratch.open({
-      name = "LUA",
-      ft = "lua",
-      filekey = {
-        cwd = false,
-        branch = false,
-        count = false,
-      },
-    })
+    snacks.scratch.open(get_scratch_config({ ft = "lua", filekey = { cwd = false } }))
   end,
-  { desc = "Handy lua" }
+  { desc = "lua hac[k]s" }
 )
 map(
   "n",
   "<leader>kf",
   function() snacks.scratch.open(get_scratch_config()) end,
-  { desc = "[f]iletype-specific" }
+  { desc = "[f]iletype" }
 )
 map("n", "<leader>kc", function() snacks.scratch.select() end, { desc = "[c]hoose" })
 
