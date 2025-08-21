@@ -129,7 +129,7 @@ map(
   "n",
   "<leader>gi",
   function() snacks.terminal("git_remote_create_issue") end,
-  { noremap = true, silent = true, desc = "Open lazygit" }
+  { noremap = true, silent = true, desc = "Create issue on remote" }
 )
 map(
   { "n", "o" },
