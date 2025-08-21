@@ -32,55 +32,56 @@
         {
           lspsAndRuntimeDeps = {
             general = with pkgs; [
-              universal-ctags
-              ripgrep
-              fd
               basedpyright
               bash-language-server
+              clippy
+              djlint
               docker-language-server
+              fd
+              google-java-format
               jinja-lsp
               lua-language-server
               nil
+              nixfmt-rfc-style
               postgres-lsp
+              prettierd
+              ripgrep
               ruff
               rust-analyzer
               rustfmt
+              shellcheck
+              shellharden
+              shfmt
+              stylua
               superhtml
               tailwindcss-language-server
               typescript-language-server
-              yaml-language-server
-              stylua
-              prettierd
-              djlint
-              shfmt
-              shellharden
-              shellcheck
-              google-java-format
-              nixfmt-rfc-style
               typstyle
+              universal-ctags
+              yaml-language-server
             ];
           };
           startupPlugins = {
             general = with pkgs.vimPlugins; [
-              which-key-nvim
-              lualine-nvim
-              nvim-treesitter.withAllGrammars
-              nvim-web-devicons
-              mini-icons
-              snacks-nvim
-              nvim-lspconfig
-              persistence-nvim
-              copilot-lua
+              CopilotChat-nvim
               blink-cmp
               blink-copilot
               blink-ripgrep-nvim
-              CopilotChat-nvim
               conform-nvim
+              copilot-lua
+              dial-nvim
               flash-nvim
               gitsigns-nvim
               hardtime-nvim
-              dial-nvim
+              lualine-nvim
+              mini-icons
+              nvim-lspconfig
+              nvim-treesitter.withAllGrammars
+              nvim-web-devicons
+              persistence-nvim
+              snacks-nvim
               vim-dirdiff
+              which-key-nvim
             ];
           };
           # optionalPlugins = { };

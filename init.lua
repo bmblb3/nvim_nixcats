@@ -232,6 +232,14 @@ vim.lsp.config("lua_ls", {
     },
   },
 })
+vim.lsp.config("rust_analyzer", {
+  settings = {
+    ["rust-analyzer"] = {
+      diagnostics = { enable = false },
+      check = { command = "clippy" },
+    },
+  },
+})
 vim.lsp.enable("basedpyright")
 vim.lsp.enable("bashls")
 vim.lsp.enable("docker_language_server")
