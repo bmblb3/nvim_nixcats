@@ -386,3 +386,10 @@ map(
   function() require("dial.map").manipulate("decrement", "visual") end,
   { desc = "Dial decrement" }
 )
+
+local hipatterns = require("mini.hipatterns")
+hipatterns.setup({
+  highlighters = {
+    hex_color = hipatterns.gen_highlighter.hex_color(),
+  },
+})

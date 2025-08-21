@@ -75,6 +75,7 @@
               hardtime-nvim
               lualine-nvim
               mini-icons
+              mini-hipatterns
               nvim-lspconfig
               nvim-treesitter.withAllGrammars
               nvim-web-devicons
