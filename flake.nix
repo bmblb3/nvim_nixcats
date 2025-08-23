@@ -85,6 +85,7 @@
               vim-dirdiff
               vim-monokai-tasty
               which-key-nvim
+              yanky-nvim
             ];
           };
           # optionalPlugins = { };
