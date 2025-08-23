@@ -77,6 +77,7 @@
               mini-icons
               mini-hipatterns
               nvim-lspconfig
+              nvim-spider
               nvim-treesitter.withAllGrammars
               nvim-web-devicons
               persistence-nvim
