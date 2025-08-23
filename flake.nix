@@ -104,7 +104,7 @@
                 "vi"
                 "vim"
               ];
-              wrapRc = true;
+              wrapRc = false;
               # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
             };
             categories = {
