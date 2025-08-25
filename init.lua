@@ -340,7 +340,8 @@ require("conform").setup({
 map(
   "",
   "<leader>f",
-  function() require("conform").format({ async = true, lsp_fallback = true }) end
+  function() require("conform").format({ async = true, lsp_fallback = true }) end,
+  { desc = "[f]ormat using conform" }
 )
 
 local blink = require("blink.cmp")
