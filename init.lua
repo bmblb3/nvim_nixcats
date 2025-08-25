@@ -38,8 +38,7 @@ vim.opt.completeopt = "menu,menuone,preview,noselect"
 vim.opt.cursorline = true
 vim.opt.pumblend = 10
 vim.opt.pumheight = 10
-vim.opt.sessionoptions =
-  { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
+vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 vim.opt.showmode = false
 vim.opt.splitbelow = true
 vim.opt.splitright = true
@@ -74,28 +73,13 @@ map("n", "N", "Nzzzv", { desc = "Previous Search Result" })
 
 map({ "n", "v", "x" }, "<leader>y", '"+y', { desc = "Yank to clipboard" })
 map({ "n", "v", "x" }, "<leader>p", '"+p', { desc = "Paste from clipboard" })
-map(
-  { "v", "x" },
-  "p",
-  '"_dP',
-  { desc = "Keep unammed register when overwriting in visual mode" }
-)
+map({ "v", "x" }, "p", '"_dP', { desc = "Keep unammed register when overwriting in visual mode" })
 
 wk.add({ "<leader>d", group = "LSP [d]iagnostics" })
 map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [d]iagnostic message" })
 map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [d]iagnostic message" })
-map(
-  "n",
-  "<leader>df",
-  vim.diagnostic.open_float,
-  { desc = "Open [f]loating diagnostic message" }
-)
-map(
-  "n",
-  "<leader>dq",
-  vim.diagnostic.setloclist,
-  { desc = "Open diagnostics [q]uickfix list" }
-)
+map("n", "<leader>df", vim.diagnostic.open_float, { desc = "Open [f]loating diagnostic message" })
+map("n", "<leader>dq", vim.diagnostic.setloclist, { desc = "Open diagnostics [q]uickfix list" })
 
 vim.cmd.colorscheme("vim-monokai-tasty")
 
@@ -111,12 +95,7 @@ local function get_git_repo_name()
   if handle then handle:close() end
   return git_repo
 end
-map(
-  "n",
-  "<leader>gl",
-  function() snacks.lazygit.open() end,
-  { noremap = true, silent = true, desc = "Open lazygit" }
-)
+map("n", "<leader>gl", function() snacks.lazygit.open() end, { noremap = true, silent = true, desc = "Open lazygit" })
 map(
   "n",
   "<leader>gi",
@@ -211,19 +190,10 @@ map(
 map(
   "n",
   "<leader>kk",
-  function()
-    snacks.scratch.open(
-      get_scratch_config({ name = "Hacks", ft = "lua", filekey = { cwd = false } })
-    )
-  end,
+  function() snacks.scratch.open(get_scratch_config({ name = "Hacks", ft = "lua", filekey = { cwd = false } })) end,
   { desc = "lua hac[k]s" }
 )
-map(
-  "n",
-  "<leader>kf",
-  function() snacks.scratch.open(get_scratch_config()) end,
-  { desc = "[f]iletype" }
-)
+map("n", "<leader>kf", function() snacks.scratch.open(get_scratch_config()) end, { desc = "[f]iletype" })
 map("n", "<leader>kc", function() snacks.scratch.select() end, { desc = "[c]hoose" })
 
 require("nvim-treesitter.configs").setup({
@@ -279,18 +249,8 @@ require("copilot").setup({
 local copilotchat = require("CopilotChat")
 copilotchat.setup({})
 map({ "n", "v" }, "<leader>ac", function() copilotchat.toggle() end, { desc = "Chat" })
-map(
-  { "n", "v" },
-  "<leader>ap",
-  function() copilotchat.select_prompt() end,
-  { desc = "Pick Prompt" }
-)
-map(
-  { "n", "v" },
-  "<leader>am",
-  function() copilotchat.select_model() end,
-  { desc = "Pick Model" }
-)
+map({ "n", "v" }, "<leader>ap", function() copilotchat.select_prompt() end, { desc = "Pick Prompt" })
+map({ "n", "v" }, "<leader>am", function() copilotchat.select_model() end, { desc = "Pick Model" })
 
 require("conform").setup({
   default_format_opts = { timeout_ms = 3000, lsp_format = "fallback" },
@@ -316,7 +276,7 @@ require("conform").setup({
         "--indent-width",
         2,
         "--column-width",
-        90,
+        120,
         "--collapse-simple-statement",
         "Always",
       },
@@ -361,52 +321,17 @@ blink.add_source_provider("ripgrep", {
 
 require("flash").setup({ modes = { search = { enabled = true } } })
 map({ "n", "x", "o" }, "s", function() require("flash").jump() end, { desc = "Fla[s]h" })
-map(
-  { "n", "x", "o" },
-  "S",
-  function() require("flash").treesitter() end,
-  { desc = "Flash tree[S]itter" }
-)
+map({ "n", "x", "o" }, "S", function() require("flash").treesitter() end, { desc = "Flash tree[S]itter" })
 map({ "o" }, "r", function() require("flash").remote() end, { desc = "flash [r]emote" })
-map(
-  { "o", "x" },
-  "R",
-  function() require("flash").treesitter_search() end,
-  { desc = "Flash treesitter [R]emote" }
-)
-map(
-  { "s" },
-  "<C-s>",
-  function() require("flash").toggle() end,
-  { desc = "Toggle Fla[^s]h Search" }
-)
+map({ "o", "x" }, "R", function() require("flash").treesitter_search() end, { desc = "Flash treesitter [R]emote" })
+map({ "s" }, "<C-s>", function() require("flash").toggle() end, { desc = "Toggle Fla[^s]h Search" })
 
 require("hardtime").setup()
 
-map(
-  { "n" },
-  "<M-k>",
-  function() require("dial.map").manipulate("increment", "normal") end,
-  { desc = "Dial increment" }
-)
-map(
-  { "n" },
-  "<M-j>",
-  function() require("dial.map").manipulate("decrement", "normal") end,
-  { desc = "Dial decrement" }
-)
-map(
-  { "v" },
-  "<M-k>",
-  function() require("dial.map").manipulate("increment", "visual") end,
-  { desc = "Dial increment" }
-)
-map(
-  { "v" },
-  "<M-j>",
-  function() require("dial.map").manipulate("decrement", "visual") end,
-  { desc = "Dial decrement" }
-)
+map({ "n" }, "<M-k>", function() require("dial.map").manipulate("increment", "normal") end, { desc = "Dial increment" })
+map({ "n" }, "<M-j>", function() require("dial.map").manipulate("decrement", "normal") end, { desc = "Dial decrement" })
+map({ "v" }, "<M-k>", function() require("dial.map").manipulate("increment", "visual") end, { desc = "Dial increment" })
+map({ "v" }, "<M-j>", function() require("dial.map").manipulate("decrement", "visual") end, { desc = "Dial decrement" })
 
 local hipatterns = require("mini.hipatterns")
 hipatterns.setup({
@@ -431,33 +356,8 @@ local picker = snacks.picker
 map("n", "<leader>p", function() picker() end, { desc = "list [p]ickers" })
 map("n", "<leader><Space>", function() snacks.picker.smart() end, { desc = "find files" })
 map("n", "<leader>/", function() snacks.picker.grep() end, { desc = "find by grep" })
-map(
-  "n",
-  "gd",
-  function() snacks.picker.lsp_definitions() end,
-  { desc = "Goto Definition" }
-)
-map(
-  "n",
-  "gD",
-  function() snacks.picker.lsp_declarations() end,
-  { desc = "Goto Declaration" }
-)
-map(
-  "n",
-  "gr",
-  function() snacks.picker.lsp_references() end,
-  { desc = "References", nowait = true }
-)
-map(
-  "n",
-  "gI",
-  function() snacks.picker.lsp_implementations() end,
-  { desc = "Goto Implementation" }
-)
-map(
-  "n",
-  "gy",
-  function() snacks.picker.lsp_type_definitions() end,
-  { desc = "Goto T[y]pe Definition" }
-)
+map("n", "gd", function() snacks.picker.lsp_definitions() end, { desc = "Goto Definition" })
+map("n", "gD", function() snacks.picker.lsp_declarations() end, { desc = "Goto Declaration" })
+map("n", "gr", function() snacks.picker.lsp_references() end, { desc = "References", nowait = true })
+map("n", "gI", function() snacks.picker.lsp_implementations() end, { desc = "Goto Implementation" })
+map("n", "gy", function() snacks.picker.lsp_type_definitions() end, { desc = "Goto T[y]pe Definition" })
