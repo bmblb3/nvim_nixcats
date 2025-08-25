@@ -169,6 +169,7 @@ snacks.setup({
   quickfile = { enabled = true },
   scroll = { enabled = true },
   indent = { enabled = true },
+  words = { enabled = true },
 })
 
 wk.add({ "<leader>k", group = "S[k]ratch" })
