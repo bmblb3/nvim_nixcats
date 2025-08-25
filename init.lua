@@ -187,14 +187,6 @@ end, { desc = "Generate commit message with Copilot", noremap = true, silent = t
 
 local persistence = require("persistence")
 persistence.setup({})
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    if vim.fn.argc() == 0 then
-      persistence.load()
-      vim.cmd("bufdo doautocmd BufRead")
-    end
-  end,
-})
 wk.add({ "<leader>i", group = "Sess[i]on" })
 map("n", "<leader>i.", function() persistence.load() end, { desc = "load current [.]" })
 map("n", "<leader>ic", function() persistence.select() end, { desc = "[c]hoose" })
