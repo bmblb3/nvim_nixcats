@@ -155,6 +155,35 @@ map(
   function() vim.cmd("Gitsigns stage_hunk") end,
   { noremap = true, silent = true, desc = "Stage/unstage hunk" }
 )
+map("n", "<leader>gc", function()
+  if vim.bo.filetype ~= "gitcommit" then return end
+  local buf = vim.api.nvim_get_current_buf()
+
+  local diff = vim.fn.systemlist("git diff --cached")
+  if vim.v.shell_error ~= 0 then return end
+  if #diff == 0 then return end
+
+  local prompt = table.concat(
+    vim.list_extend({
+      "Write commit message for the below changes using the conventional-commits convention.",
+      "Keep the title under 50 characters.",
+      "The body is VERY MUCH OPTIONAL, add it ONLY if the commit is complex.",
+      "Don't add body for simple self explanatory commits",
+      "Body if added should be readable bullet points.",
+      "Body if added should explain the 'why' of a commit (if you know why)",
+      "Wrap message at 72 characters.",
+      "Output only the commit message, as raw text.",
+    }, diff),
+    "\n"
+  )
+
+  require("CopilotChat").ask(prompt, {
+    callback = function(response)
+      vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(response, "\n"))
+      vim.cmd("CopilotChatClose")
+    end,
+  })
+end, { desc = "Generate commit message with Copilot", noremap = true, silent = true })
 
 local persistence = require("persistence")
 persistence.setup({})
