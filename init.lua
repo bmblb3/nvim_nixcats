@@ -361,3 +361,5 @@ map("n", "gD", function() snacks.picker.lsp_declarations() end, { desc = "Goto [
 map("n", "gr", function() snacks.picker.lsp_references() end, { desc = "Goto [R]eferences", nowait = true })
 map("n", "gI", function() snacks.picker.lsp_implementations() end, { desc = "Goto [I]mplementation" })
 map("n", "gy", function() snacks.picker.lsp_type_definitions() end, { desc = "Goto T[y]pe Definition" })
+
+snacks.indent.enable()
