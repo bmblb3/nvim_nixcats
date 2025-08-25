@@ -102,14 +102,6 @@ vim.cmd.colorscheme("vim-monokai-tasty")
 require("lualine").setup({})
 
 local snacks = require("snacks")
-local picker = snacks.picker
-wk.add({ "<leader>p", group = "[p]icker" })
-map(
-  "n",
-  "<leader>pp",
-  function() picker() end,
-  { noremap = true, silent = true, desc = "list pickers" }
-)
 
 wk.add({ "<leader>g", group = "[g]it stuff" })
 require("gitsigns").setup()
@@ -434,3 +426,38 @@ map({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
 map({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
 map("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
 map("n", "<c-n>", "<Plug>(YankyNextEntry)")
+
+local picker = snacks.picker
+map("n", "<leader>p", function() picker() end, { desc = "list [p]ickers" })
+map("n", "<leader><Space>", function() snacks.picker.smart() end, { desc = "find files" })
+map("n", "<leader>/", function() snacks.picker.grep() end, { desc = "find by grep" })
+map(
+  "n",
+  "gd",
+  function() snacks.picker.lsp_definitions() end,
+  { desc = "Goto Definition" }
+)
+map(
+  "n",
+  "gD",
+  function() snacks.picker.lsp_declarations() end,
+  { desc = "Goto Declaration" }
+)
+map(
+  "n",
+  "gr",
+  function() snacks.picker.lsp_references() end,
+  { desc = "References", nowait = true }
+)
+map(
+  "n",
+  "gI",
+  function() snacks.picker.lsp_implementations() end,
+  { desc = "Goto Implementation" }
+)
+map(
+  "n",
+  "gy",
+  function() snacks.picker.lsp_type_definitions() end,
+  { desc = "Goto T[y]pe Definition" }
+)
