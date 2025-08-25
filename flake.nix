@@ -38,6 +38,7 @@
               djlint
               docker-language-server
               fd
+              fzf-lua
               google-java-format
               jinja-lsp
               lua-language-server
@@ -71,7 +72,6 @@
               copilot-lua
               dial-nvim
               flash-nvim
-              fzf-lua
               gitsigns-nvim
               hardtime-nvim
               lualine-nvim
