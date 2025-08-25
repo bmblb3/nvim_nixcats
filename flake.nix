@@ -38,7 +38,6 @@
               djlint
               docker-language-server
               fd
-              fzf-lua
               google-java-format
               jinja-lsp
               lua-language-server
