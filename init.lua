@@ -194,6 +194,7 @@ map("n", "<leader>ic", function() persistence.select() end, { desc = "[c]hoose" 
 snacks.setup({
   scratch = { enabled = true },
   picker = { enabled = true },
+  bigfile = { enabled = true },
 })
 
 wk.add({ "<leader>k", group = "S[k]ratch" })
