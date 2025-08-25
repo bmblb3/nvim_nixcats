@@ -358,7 +358,8 @@ map("n", "<c-n>", "<Plug>(YankyNextEntry)")
 
 local picker = snacks.picker
 map("n", "<leader>p", function() picker() end, { desc = "list [p]ickers" })
-map("n", "<leader><Space>", function() snacks.picker.smart() end, { desc = "find files" })
+map("n", "<leader><Space>", function() snacks.picker.smart() end, { desc = "find files (smart)" })
+map("n", "<leader>,", function() snacks.picker.buffers() end, { desc = "find files (buffers)" })
 map("n", "<leader>/", function() snacks.picker.grep() end, { desc = "find by grep" })
 map("n", "gd", function() snacks.picker.lsp_definitions() end, { desc = "Goto [d]efinition" })
 map("n", "gD", function() snacks.picker.lsp_declarations() end, { desc = "Goto [D]eclaration" })
