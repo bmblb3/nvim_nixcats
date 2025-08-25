@@ -278,23 +278,23 @@ vim.lsp.enable("ts_ls")
 vim.lsp.enable("yamlls")
 vim.lsp.enable("rust_analyzer")
 
-wk.add({ "<leader>ai", group = "[AI]" })
+wk.add({ "<leader>a", group = "[A]I" })
 require("copilot").setup({
   panel = { enabled = false },
   suggestions = { enabled = false },
 })
 local copilotchat = require("CopilotChat")
 copilotchat.setup({})
-map({ "n", "v" }, "<leader>aic", function() copilotchat.toggle() end, { desc = "Chat" })
+map({ "n", "v" }, "<leader>ac", function() copilotchat.toggle() end, { desc = "Chat" })
 map(
   { "n", "v" },
-  "<leader>aip",
+  "<leader>ap",
   function() copilotchat.select_prompt() end,
   { desc = "Pick Prompt" }
 )
 map(
   { "n", "v" },
-  "<leader>aim",
+  "<leader>am",
   function() copilotchat.select_model() end,
   { desc = "Pick Model" }
 )
