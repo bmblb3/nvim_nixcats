@@ -66,11 +66,6 @@ vim.cmd([[command! Q q]])
 map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Moves Line Down" })
 map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Moves Line Up" })
 
-map("n", "<C-d>", "<C-d>zz", { desc = "Scroll Down" })
-map("n", "<C-u>", "<C-u>zz", { desc = "Scroll Up" })
-map("n", "n", "nzzzv", { desc = "Next Search Result" })
-map("n", "N", "Nzzzv", { desc = "Previous Search Result" })
-
 map({ "n", "v", "x" }, "<leader>y", '"+y', { desc = "Yank to clipboard" })
 map({ "n", "v", "x" }, "<leader>p", '"+p', { desc = "Paste from clipboard" })
 map({ "v", "x" }, "p", '"_dP', { desc = "Keep unammed register when overwriting in visual mode" })
