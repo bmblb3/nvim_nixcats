@@ -93,9 +93,9 @@ end
 map("n", "<leader>gl", function() snacks.lazygit.open() end, { noremap = true, silent = true, desc = "Open lazygit" })
 map(
   "n",
-  "<leader>gi",
-  function() snacks.terminal("git_remote_create_issue") end,
-  { noremap = true, silent = true, desc = "Create issue on remote" }
+  "<leader>gw",
+  function() snacks.terminal("github_workflow") end,
+  { noremap = true, silent = true, desc = "Launch github workflow" }
 )
 map(
   { "n", "o" },
