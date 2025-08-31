@@ -5,57 +5,59 @@ local map = function(mode, lhs, rhs, opts)
 end
 
 vim.loader.enable()
+
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_python_provider = 0
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.signcolumn = "yes"
-vim.opt.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-vim.opt.foldcolumn = "1"
-vim.opt.fillchars = { foldopen = "", foldclose = "", diff = "╱" }
-vim.opt.hlsearch = true
-vim.opt.scrolloff = 4
-vim.opt.sidescrolloff = 4
-vim.opt.mouse = "a"
-vim.opt.cpoptions:append("I")
-vim.opt.expandtab = true
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.breakindent = true
-vim.opt.undofile = true
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.updatetime = 250
-vim.opt.timeoutlen = 300
-vim.opt.termguicolors = true
-vim.opt.autowriteall = true
-vim.opt.shiftround = true
-vim.opt.virtualedit = "block"
-vim.opt.wildmode = "longest:full,full"
-vim.opt.completeopt = "menu,menuone,preview,noselect"
-vim.opt.cursorline = true
-vim.opt.pumblend = 10
-vim.opt.pumheight = 10
-vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
-vim.opt.showmode = false
-vim.opt.splitbelow = true
-vim.opt.splitright = true
-vim.opt.splitkeep = "screen"
-vim.opt.wrap = false
+vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3
 vim.g.netrw_silent = 1
-vim.g.netrw_banner = 0
-vim.opt.shortmess:append({ a = true, I = true, c = true })
+
+vim.opt.autowriteall = true
+vim.opt.breakindent = true
+vim.opt.completeopt = "menu,menuone,preview,noselect"
+vim.opt.cpoptions:append("I")
+vim.opt.cursorline = true
+vim.opt.expandtab = true
+vim.opt.fillchars = { foldopen = "", foldclose = "", diff = "╱" }
+vim.opt.foldcolumn = "1"
+vim.opt.hlsearch = true
+vim.opt.ignorecase = true
 vim.opt.jumpoptions = "view"
 vim.opt.laststatus = 3
+vim.opt.list = true
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+vim.opt.mouse = "a"
+vim.opt.number = true
+vim.opt.pumblend = 10
+vim.opt.pumheight = 10
+vim.opt.relativenumber = true
+vim.opt.scrolloff = 4
+vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
+vim.opt.shiftround = true
+vim.opt.shiftwidth = 2
+vim.opt.shortmess:append({ a = true, I = true, c = true })
+vim.opt.showmode = false
+vim.opt.sidescrolloff = 4
+vim.opt.signcolumn = "yes"
+vim.opt.smartcase = true
+vim.opt.softtabstop = 2
+vim.opt.splitbelow = true
+vim.opt.splitkeep = "screen"
+vim.opt.splitright = true
+vim.opt.tabstop = 2
+vim.opt.termguicolors = true
+vim.opt.timeoutlen = 300
+vim.opt.undofile = true
+vim.opt.updatetime = 250
+vim.opt.virtualedit = "block"
+vim.opt.wildmode = "longest:full,full"
+vim.opt.wrap = false
 vim.api.nvim_create_autocmd("FileType", {
   desc = "remove formatoptions",
   callback = function() vim.opt.formatoptions:remove({ "c", "r", "o" }) end,
 })
-vim.g.loaded_python3_provider = 0
-vim.g.loaded_python_provider = 0
 
 local wk = require("which-key")
 vim.cmd([[command! W w]])
