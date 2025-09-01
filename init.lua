@@ -53,7 +53,7 @@ vim.opt.undofile = true
 vim.opt.updatetime = 250
 vim.opt.virtualedit = "block"
 vim.opt.wildmode = "longest:full,full"
-vim.opt.wrap = false
+vim.opt.wrap = true
 vim.api.nvim_create_autocmd("FileType", {
   desc = "remove formatoptions",
   callback = function() vim.opt.formatoptions:remove({ "c", "r", "o" }) end,
