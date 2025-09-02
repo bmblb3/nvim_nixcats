@@ -363,5 +363,6 @@ map("n", "grD", function() snacks.picker.lsp_declarations() end, { desc = "Goto 
 map("n", "grr", function() snacks.picker.lsp_references() end, { desc = "Goto [r]eferences", nowait = true })
 map("n", "gri", function() snacks.picker.lsp_implementations() end, { desc = "Goto [i]mplementation" })
 map("n", "grt", function() snacks.picker.lsp_type_definitions() end, { desc = "Goto [t]ype Definition" })
+map("n", "grc", function() snacks.picker.diagnostics() end, { desc = "Open LSP daignotsti[c]s" })
 
 if os.getenv("EXTRA_VIMRC") then vim.cmd("source " .. os.getenv("EXTRA_VIMRC")) end
