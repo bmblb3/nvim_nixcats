@@ -366,3 +366,5 @@ map("n", "grt", function() snacks.picker.lsp_type_definitions() end, { desc = "G
 map("n", "grc", function() snacks.picker.diagnostics() end, { desc = "Open LSP daignotsti[c]s" })
 
 if os.getenv("EXTRA_VIMRC") then vim.cmd("source " .. os.getenv("EXTRA_VIMRC")) end
+
+map("n", "<Enter>", function() vim.cmd("update") end, { desc = "Write file" })
