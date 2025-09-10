@@ -81,6 +81,7 @@
               nvim-treesitter.withAllGrammars
               nvim-web-devicons
               persistence-nvim
+              rustaceanvim
               snacks-nvim
               vim-dirdiff
               vim-monokai-tasty
