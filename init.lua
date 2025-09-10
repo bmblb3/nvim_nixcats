@@ -220,6 +220,14 @@ vim.lsp.config("lua_ls", {
     },
   },
 })
+vim.lsp.config("rust_analyzer", {
+  settings = {
+    ["rust-analyzer"] = {
+      diagnostics = { enable = false },
+      check = { command = "clippy" },
+    },
+  },
+})
 vim.lsp.enable("basedpyright")
 vim.lsp.enable("bashls")
 vim.lsp.enable("docker_language_server")
@@ -232,6 +240,7 @@ vim.lsp.enable("superhtml")
 vim.lsp.enable("tailwindcss")
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("yamlls")
+vim.lsp.enable("rust_analyzer")
 
 wk.add({ "<leader>a", group = "[A]I" })
 require("copilot").setup({
