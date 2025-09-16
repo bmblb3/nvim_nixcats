@@ -374,3 +374,10 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "gitcommit",
   callback = function() vim.opt_local.swapfile = false end,
 })
+
+map(
+  "n",
+  "gh",
+  function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end,
+  { desc = "Toggle inlay hints" }
+)
