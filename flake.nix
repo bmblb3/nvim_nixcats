@@ -43,7 +43,6 @@
               lua-language-server
               nil
               nixfmt-rfc-style
-              postgres-lsp
               prettierd
               ripgrep
               ruff
