@@ -248,7 +248,12 @@ require("copilot").setup({
 })
 local copilotchat = require("CopilotChat")
 copilotchat.setup({})
-map({ "n", "v" }, "<leader>ac", function() copilotchat.toggle() end, { desc = "Chat" })
+local sticky = [[
+#buffer
+> @copilot
+> DO: Write SIMPLE, CLEAR, and RELIABLE code. Prefer explicitness over clever tricks. Keep functions short and readable. Use plain language and conventional/idiomatic patterns. Handle errors safely and predictably
+> DO NOT: Add features I didn’t ask for. Use “magic” one-liners or obscure idioms. Optimize prematurely. Add abstraction unless necessary. Overcomplicate variable names or structure. Add unnecessary comments]]
+map({ "n", "v" }, "<leader>ac", function() copilotchat.toggle({ sticky = sticky }) end, { desc = "Chat" })
 map({ "n", "v" }, "<leader>ap", function() copilotchat.select_prompt() end, { desc = "Pick Prompt" })
 map({ "n", "v" }, "<leader>am", function() copilotchat.select_model() end, { desc = "Pick Model" })
 
