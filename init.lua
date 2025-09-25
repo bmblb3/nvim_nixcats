@@ -46,6 +46,7 @@ vim.opt.softtabstop = 2
 vim.opt.splitbelow = true
 vim.opt.splitkeep = "screen"
 vim.opt.splitright = true
+vim.opt.swapfile = false
 vim.opt.tabstop = 2
 vim.opt.termguicolors = true
 vim.opt.timeoutlen = 300
@@ -373,12 +374,6 @@ map("n", "grc", function() snacks.picker.diagnostics() end, { desc = "Open LSP d
 if os.getenv("EXTRA_VIMRC") then vim.cmd("source " .. os.getenv("EXTRA_VIMRC")) end
 
 map("n", "<Enter>", function() vim.cmd("update") end, { desc = "Write file" })
-
--- Disable swap for gitcommit
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "gitcommit",
-  callback = function() vim.opt_local.swapfile = false end,
-})
 
 map(
   "n",
