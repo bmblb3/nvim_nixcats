@@ -121,6 +121,12 @@ map(
 )
 map(
   "n",
+  "<leader>gr",
+  function() vim.cmd("Gitsigns reset_hunk") end,
+  { noremap = true, silent = true, desc = "Reset hunk" }
+)
+map(
+  "n",
   "<leader>gs",
   function() vim.cmd("Gitsigns stage_hunk") end,
   { noremap = true, silent = true, desc = "Stage/unstage hunk" }
