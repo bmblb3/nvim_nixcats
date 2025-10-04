@@ -165,7 +165,6 @@ snacks.setup({
   picker = { enabled = true },
   bigfile = { enabled = true },
   quickfile = { enabled = true },
-  scroll = { enabled = true },
   indent = { enabled = true },
   words = { enabled = true },
 })
