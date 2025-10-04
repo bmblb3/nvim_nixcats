@@ -351,14 +351,6 @@ map({ "n", "o", "x" }, "w", "<cmd>lua require('spider').motion('w')<CR>")
 map({ "n", "o", "x" }, "e", "<cmd>lua require('spider').motion('e')<CR>")
 map({ "n", "o", "x" }, "b", "<cmd>lua require('spider').motion('b')<CR>")
 
-require("yanky").setup()
-map({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
-map({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
-map({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
-map({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
-map("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
-map("n", "<c-n>", "<Plug>(YankyNextEntry)")
-
 local picker = snacks.picker
 map("n", "<leader>p", function() picker() end, { desc = "list [p]ickers" })
 map("n", "<leader><Space>", function() snacks.picker.smart() end, { desc = "find files (smart)" })
