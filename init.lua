@@ -62,9 +62,6 @@ vim.api.nvim_create_autocmd("FileType", {
 
 local wk = require("which-key")
 
-map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Moves Line Down" })
-map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Moves Line Up" })
-
 map({ "n", "v", "x" }, "<leader>y", '"+y', { desc = "Yank to clipboard" })
 map({ "n", "v", "x" }, "<leader>p", '"+p', { desc = "Paste from clipboard" })
 map({ "v", "x" }, "p", '"_dP', { desc = "Keep unammed register when overwriting in visual mode" })
