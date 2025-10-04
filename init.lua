@@ -89,7 +89,7 @@ local function get_git_repo_name()
   if handle then handle:close() end
   return git_repo
 end
-map("n", "<leader>gl", function() snacks.lazygit.open() end, { noremap = true, silent = true, desc = "Open lazygit" })
+map("n", "<C-g>", function() snacks.lazygit.open() end, { noremap = true, silent = true, desc = "Open lazygit" })
 map(
   "n",
   "<leader>gw",
