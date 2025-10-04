@@ -74,12 +74,24 @@ map({ "n", "v", "x" }, "<leader>p", '"+p', { desc = "Paste from clipboard" })
 map({ "v", "x" }, "p", '"_dP', { desc = "Keep unammed register when overwriting in visual mode" })
 map({ "n" }, "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlights" })
 
+--
 wk.add({ "<leader>d", group = "LSP [d]iagnostics" })
-map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [d]iagnostic message" })
-map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [d]iagnostic message" })
+map(
+  { "n", "o" },
+  "[d",
+  function() vim.diagnostic.jump({ count = -vim.v.count1, float = true }) end,
+  { desc = "Go to previous [d]iagnostic message" }
+)
+map(
+  { "n", "o" },
+  "]d",
+  function() vim.diagnostic.jump({ count = vim.v.count1, float = true }) end,
+  { desc = "Go to next [d]iagnostic message" }
+)
 map("n", "<leader>df", vim.diagnostic.open_float, { desc = "Open [f]loating diagnostic message" })
 map("n", "<leader>dq", vim.diagnostic.setloclist, { desc = "Open diagnostics [q]uickfix list" })
 
+--
 wk.add({ "<leader>g", group = "[g]it stuff" })
 require("gitsigns").setup()
 local function get_git_repo_name()
