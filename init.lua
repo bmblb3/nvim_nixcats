@@ -72,6 +72,7 @@ require("lualine").setup({})
 map({ "n", "v", "x" }, "<leader>y", '"+y', { desc = "Yank to clipboard" })
 map({ "n", "v", "x" }, "<leader>p", '"+p', { desc = "Paste from clipboard" })
 map({ "v", "x" }, "p", '"_dP', { desc = "Keep unammed register when overwriting in visual mode" })
+map({ "n" }, "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlights" })
 
 wk.add({ "<leader>d", group = "LSP [d]iagnostics" })
 map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [d]iagnostic message" })
