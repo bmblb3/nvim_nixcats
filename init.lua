@@ -1,5 +1,6 @@
 vim.loader.enable()
 
+vim.g.have_nerd_font = false
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_python_provider = 0
 vim.g.mapleader = " "
