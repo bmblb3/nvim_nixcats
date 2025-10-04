@@ -161,12 +161,13 @@ Write commit message for the below changes using the conventional-commits conven
   })
 end, { desc = "Generate commit message with Copilot", noremap = true, silent = true })
 
+--
 local persistence = require("persistence")
 persistence.setup({})
 wk.add({ "<leader>i", group = "Sess[i]on" })
 map("n", "<leader>i.", function() persistence.load() end, { desc = "load current [.]" })
-map("n", "<leader>ic", function() persistence.select() end, { desc = "[c]hoose" })
 
+--
 snacks.setup({
   scratch = { enabled = true },
   picker = { enabled = true },
