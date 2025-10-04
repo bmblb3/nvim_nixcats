@@ -1,5 +1,6 @@
 vim.loader.enable()
 
+-- options
 vim.g.have_nerd_font = false
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_python_provider = 0
@@ -8,7 +9,6 @@ vim.g.maplocalleader = " "
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3
 vim.g.netrw_silent = 1
-
 vim.opt.autowriteall = true
 vim.opt.breakindent = true
 vim.opt.completeopt = "menu,menuone,preview,noselect"
@@ -55,6 +55,7 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function() vim.opt.formatoptions:remove({ "c", "r", "o" }) end,
 })
 
+--
 local map = function(mode, lhs, rhs, opts)
   local defaults = { silent = true, noremap = true }
   if opts then defaults = vim.tbl_extend("force", defaults, opts) end
@@ -63,8 +64,11 @@ end
 local wk = require("which-key")
 local snacks = require("snacks")
 
+-- pretty
 vim.cmd.colorscheme("vim-monokai-tasty")
 require("lualine").setup({})
+
+-- general keymaps
 map({ "n", "v", "x" }, "<leader>y", '"+y', { desc = "Yank to clipboard" })
 map({ "n", "v", "x" }, "<leader>p", '"+p', { desc = "Paste from clipboard" })
 map({ "v", "x" }, "p", '"_dP', { desc = "Keep unammed register when overwriting in visual mode" })
