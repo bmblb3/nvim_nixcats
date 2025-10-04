@@ -1,9 +1,3 @@
-local map = function(mode, lhs, rhs, opts)
-  local defaults = { silent = true, noremap = true }
-  if opts then defaults = vim.tbl_extend("force", defaults, opts) end
-  vim.keymap.set(mode, lhs, rhs, defaults)
-end
-
 vim.loader.enable()
 
 vim.g.loaded_python3_provider = 0
@@ -60,8 +54,16 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function() vim.opt.formatoptions:remove({ "c", "r", "o" }) end,
 })
 
+local map = function(mode, lhs, rhs, opts)
+  local defaults = { silent = true, noremap = true }
+  if opts then defaults = vim.tbl_extend("force", defaults, opts) end
+  vim.keymap.set(mode, lhs, rhs, defaults)
+end
 local wk = require("which-key")
+local snacks = require("snacks")
 
+vim.cmd.colorscheme("vim-monokai-tasty")
+require("lualine").setup({})
 map({ "n", "v", "x" }, "<leader>y", '"+y', { desc = "Yank to clipboard" })
 map({ "n", "v", "x" }, "<leader>p", '"+p', { desc = "Paste from clipboard" })
 map({ "v", "x" }, "p", '"_dP', { desc = "Keep unammed register when overwriting in visual mode" })
@@ -71,12 +73,6 @@ map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [d]iagnostic m
 map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [d]iagnostic message" })
 map("n", "<leader>df", vim.diagnostic.open_float, { desc = "Open [f]loating diagnostic message" })
 map("n", "<leader>dq", vim.diagnostic.setloclist, { desc = "Open diagnostics [q]uickfix list" })
-
-vim.cmd.colorscheme("vim-monokai-tasty")
-
-require("lualine").setup({})
-
-local snacks = require("snacks")
 
 wk.add({ "<leader>g", group = "[g]it stuff" })
 require("gitsigns").setup()
