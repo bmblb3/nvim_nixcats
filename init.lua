@@ -102,12 +102,6 @@ local function get_git_repo_name()
 end
 map("n", "<C-g>", function() snacks.lazygit.open() end, { noremap = true, silent = true, desc = "Open lazygit" })
 map(
-  "n",
-  "<leader>gw",
-  function() snacks.terminal("github_workflow") end,
-  { noremap = true, silent = true, desc = "Launch github workflow" }
-)
-map(
   { "n", "o" },
   "]g",
   function() vim.cmd("Gitsigns next_hunk") end,
