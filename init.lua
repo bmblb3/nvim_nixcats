@@ -364,8 +364,6 @@ map("n", "grc", function() snacks.picker.diagnostics() end, { desc = "Open LSP d
 
 if os.getenv("EXTRA_VIMRC") then vim.cmd("source " .. os.getenv("EXTRA_VIMRC")) end
 
-map("n", "<Enter>", function() vim.cmd("update") end, { desc = "Write file" })
-
 map(
   "n",
   "gh",
