@@ -61,10 +61,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 local wk = require("which-key")
-vim.cmd([[command! W w]])
-vim.cmd([[command! Wq wq]])
-vim.cmd([[command! WQ wq]])
-vim.cmd([[command! Q q]])
 
 map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Moves Line Down" })
 map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Moves Line Up" })
